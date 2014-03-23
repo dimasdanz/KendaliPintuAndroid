@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <string name="app_name">Keamanan Pintu</string>
+    <string name="na">n/a</string>
+    <string name="change">Ubah</string>
+    <string name="apply">Simpan</string>
+    <string name="loading_message">Mohon Tunggu</string>
+    <string name="close">Tutup</string>
+    
+    <!-- Main Activity -->
+    <string name="action_device_status">Status Perangkat</string>
+    <string name="action_log">Log</string>
+    <string name="action_user">Pengguna</string>
+    <string name="action_settings">Pengaturan</string>
+    
+    <!-- Status Perangkat Activity -->
+    <string name="title_activity_device_status">Status Perangkat</string>
+    <string name="string_status">Status</string>
+    <string name="string_condition">Kondisi</string>
+    <string name="string_unlock">Buka</string>
+    <string name="string_attempt">Batas Pengulangan</string>
+    
+    <string name="string_condition_value_true">Perangkat Terkunci</string>
+    <string name="string_condition_value_false">Tidak Terkunci</string>
+    
+    <string name="title_dialog_server_error">Kesalahan Server</string>
+    <string name="message_dialog_connection_error">1. Koneksi internet bermasalah\n2. Hostname belum dikonfigurasi\n3. Konfigurasi hostname salah\n4. Server mungkin tidak tersedia</string>
+    
+    <string name="toast_device_locked">Perangkat terkunci, buka terlebih dahulu</string>
+    <string name="toast_device_unlocked">Perangkat telah dibuka</string>
+    <string name="toast_device_status_on">Perangkat telah dihidupkan</string>
+    <string name="toast_device_status_off">Perangkat telah dimatikan</string>
+    <string name="toast_device_attempts_change">Batas percobaan telah diganti</string>
+    
+    <!-- Log Activity -->
+    <string name="title_activity_log">Log</string>
+    
+    <!-- Pengguna Activity -->
+    <string name="title_activity_user">Pengguna</string>
+    
+    <!-- Pengaturan Activity -->
+    <string name="title_activity_setting">Pengaturan</string>
+    <string name="string_hostname">Server Hostname</string>
+    <string name="string_receive_notifications">Notifikasi</string>
+    <string name="toast_notification_setting_on">Anda akan menerima notifikasi</string>
+    <string name="toast_notification_setting_off">Anda tidak akan menerima notifikasi</string>
+
+</resources>
