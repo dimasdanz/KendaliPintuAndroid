@@ -52,6 +52,7 @@ public class DialogManager extends DialogFragment {
 			editText.setText(null);
 			builder.setIcon(android.R.drawable.ic_dialog_info);
         	builder.setTitle(R.string.string_hostname);
+        	builder.setMessage(R.string.hint_dialog_hostname_input);
 			builder.setView(editText);
 			builder.setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
             	public void onClick(DialogInterface dialog, int id) {
@@ -65,6 +66,7 @@ public class DialogManager extends DialogFragment {
 			numberText.setInputType(InputType.TYPE_CLASS_NUMBER);
 			builder.setIcon(android.R.drawable.ic_dialog_info);
         	builder.setTitle(R.string.string_attempt);
+        	builder.setMessage(R.string.hint_dialog_attempt_input);
 			builder.setView(numberText);
 			builder.setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
             	public void onClick(DialogInterface dialog, int id) {
