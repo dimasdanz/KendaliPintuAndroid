@@ -59,10 +59,10 @@
             android:id="@+id/txtAttempts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.35"
+            android:focusable="false"
             android:inputType="number"
-            android:focusable="false" 
-            android:onClick="onClickAttemptsSetting"/>
+            android:onClick="onClickAttemptsSetting" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/layout_condition"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -103,8 +103,66 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/string_unlock" 
-            android:onClick="onClickButtonUnlock"/>
+            android:onClick="onClickButtonUnlock"
+            android:text="@string/string_unlock" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layout_device_locked"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_message" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layout_progress_bar"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_title_connection_error" 
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/message_dialog_connection_error"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:onClick="onClickRefresh"
+            android:text="@string/refresh" />
 
     </LinearLayout>
 
