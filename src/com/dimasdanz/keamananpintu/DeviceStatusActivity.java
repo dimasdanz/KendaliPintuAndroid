@@ -15,7 +15,6 @@ import com.dimasdanz.keamananpintu.util.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,21 +86,25 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 		dialogInputAttempts.show(getSupportFragmentManager(), "InputPasswordAttempts");
 	}
 	
+	public void onClickRefresh(View v){
+		new GetDeviceStatus().execute();
+	}
+	
 	class GetDeviceStatus extends AsyncTask<Void, Void, Boolean> {
 		boolean condition;
 		boolean status;
 		String password_attempts;
-		ProgressDialog pDialog = new ProgressDialog(DeviceStatusActivity.this);
 		JSONParser jsonParser = new JSONParser();
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			findViewById(R.id.layout_activity_device_status).setVisibility(View.GONE);
-			pDialog.setMessage(getApplicationContext().getString(R.string.loading_message));
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
+			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
+			findViewById(R.id.layout_error_message).setVisibility(View.GONE);
+			findViewById(R.id.layout_device_locked).setVisibility(View.GONE);
+			findViewById(R.id.layout_condition).setVisibility(View.GONE);
+			findViewById(R.id.layout_attempts).setVisibility(View.GONE);
+			findViewById(R.id.layout_status).setVisibility(View.GONE);
 		}
 
 		protected Boolean doInBackground(Void... args) {
@@ -124,33 +127,30 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 		}
 
 		protected void onPostExecute(Boolean result) {
-			if(!result){
-				new DialogManager();
-				DialogFragment dialogConError = DialogManager.newInstance(0);
-				dialogConError.show(getSupportFragmentManager(), "DeviceStatusConnectionError");
-			}
-			
-			findViewById(R.id.layout_activity_device_status).setVisibility(View.VISIBLE);
-			
-			if(condition){
-				findViewById(R.id.layout_device_locked).setVisibility(View.VISIBLE);
-				findViewById(R.id.layout_condition).setVisibility(View.GONE);
-				findViewById(R.id.layout_attempts).setVisibility(View.GONE);
-				findViewById(R.id.layout_status).setVisibility(View.GONE);
+			findViewById(R.id.layout_progress_bar).setVisibility(View.GONE);
+			if(result){
+				if(condition){
+					findViewById(R.id.layout_device_locked).setVisibility(View.VISIBLE);
+					findViewById(R.id.layout_error_message).setVisibility(View.GONE);
+					findViewById(R.id.layout_condition).setVisibility(View.GONE);
+					findViewById(R.id.layout_attempts).setVisibility(View.GONE);
+					findViewById(R.id.layout_status).setVisibility(View.GONE);
+				}else{
+					findViewById(R.id.layout_device_locked).setVisibility(View.GONE);
+					findViewById(R.id.layout_condition).setVisibility(View.VISIBLE);
+					findViewById(R.id.layout_attempts).setVisibility(View.VISIBLE);
+					findViewById(R.id.layout_status).setVisibility(View.VISIBLE);
+					
+					EditText textAttempts = (EditText)findViewById(R.id.txtAttempts);
+					textAttempts.setText(password_attempts);
+					
+					Switch statusSwitch = (Switch)findViewById(R.id.swStatus);
+					statusSwitch.setChecked(status);
+					statusSwitch.setOnCheckedChangeListener(DeviceStatusActivity.this);
+				}
 			}else{
-				findViewById(R.id.layout_device_locked).setVisibility(View.GONE);
-				findViewById(R.id.layout_condition).setVisibility(View.VISIBLE);
-				findViewById(R.id.layout_attempts).setVisibility(View.VISIBLE);
-				findViewById(R.id.layout_status).setVisibility(View.VISIBLE);
-				
-				EditText textAttempts = (EditText)findViewById(R.id.txtAttempts);
-				textAttempts.setText(password_attempts);
-				
-				Switch statusSwitch = (Switch)findViewById(R.id.swStatus);
-				statusSwitch.setChecked(status);
-				statusSwitch.setOnCheckedChangeListener(DeviceStatusActivity.this);
+				findViewById(R.id.layout_error_message).setVisibility(View.VISIBLE);
 			}
-			pDialog.dismiss();
 		}
 	}
 
