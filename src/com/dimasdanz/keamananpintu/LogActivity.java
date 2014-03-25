@@ -1,52 +1,137 @@
 package com.dimasdanz.keamananpintu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.dimasdanz.keamananpintu.logmodel.LogExpandableListAdapter;
+import com.dimasdanz.keamananpintu.logmodel.LogModel;
+import com.dimasdanz.keamananpintu.util.CommonUtilities;
+import com.dimasdanz.keamananpintu.util.JSONParser;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 
-public class LogActivity extends Activity {
+public class LogActivity extends Activity implements OnGroupExpandListener{
+	LogExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<LogModel>> listDataChild;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log);
-		// Show the Up button in the action bar.
-		setupActionBar();
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
-	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		expListView = (ExpandableListView) findViewById(R.id.expListViewLog);
+		new getLogDate().execute();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.log, menu);
-		return true;
+	public void onGroupExpand(int groupPosition) {
+		new getLogDetail().execute(listDataHeader.get(groupPosition));
 	}
+	
+	class getLogDate extends AsyncTask<Void, Void, Boolean> {
+		JSONParser jsonParser = new JSONParser();
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
+			findViewById(R.id.expListViewLog).setVisibility(View.GONE);
 		}
-		return super.onOptionsItemSelected(item);
-	}
 
+		protected Boolean doInBackground(Void... args) {			
+			listDataHeader = new ArrayList<String>();
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getLogDate(getApplicationContext()),"GET", params);
+			if(json != null){
+				try {
+					JSONArray date = json.getJSONArray("date");
+					for (int i = 0; i < date.length(); i++) {
+						listDataHeader.add(date.get(i).toString());
+					}
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+				return true;
+			}else{
+				Log.d("Log", "Failed");
+				return false;
+			}
+		}
+
+		protected void onPostExecute(Boolean result) {
+			if(result){
+				findViewById(R.id.layout_progress_bar).setVisibility(View.GONE);
+				findViewById(R.id.expListViewLog).setVisibility(View.VISIBLE);
+				listDataChild = new HashMap<String, List<LogModel>>();
+				List<LogModel> loading = new ArrayList<LogModel>();
+				loading.add(new LogModel("Loading", ""));
+				
+				for (int i = 0; i < listDataHeader.size(); i++) {
+					listDataChild.put(listDataHeader.get(i), loading);
+				}
+				
+				listAdapter = new LogExpandableListAdapter(getApplicationContext(), listDataHeader, listDataChild);
+		        
+		        expListView.setAdapter(listAdapter);
+		        expListView.setOnGroupExpandListener(LogActivity.this);
+			}else{
+				
+			}
+		}
+	}
+	
+	class getLogDetail extends AsyncTask<String, Void, Boolean> {
+		List<LogModel> detail = new ArrayList<LogModel>();
+		JSONParser jsonParser = new JSONParser();
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		protected Boolean doInBackground(String... args) {			
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("date", args[0]));
+			JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getLogDetail(getApplicationContext()),"POST", params);
+			if(json != null){
+				try {
+					JSONArray name = json.getJSONArray("name");
+					JSONArray time = json.getJSONArray("time");
+					for (int i = 0; i < name.length(); i++) {
+						detail.add(new LogModel(name.get(i).toString(), time.get(i).toString()));
+					}
+					listDataChild.put(args[0], detail);
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+				return true;
+			}else{
+				Log.d("Log", "Failed");
+				return false;
+			}
+		}
+
+		protected void onPostExecute(Boolean result) {
+			if(result){
+				listAdapter.refreshView();
+			}else{
+				
+			}
+		}
+	}
 }
