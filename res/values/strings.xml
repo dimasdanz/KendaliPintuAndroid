@@ -40,9 +40,12 @@
     
     <!-- Log Activity -->
     <string name="title_activity_log">Log</string>
+    <string name="action_refresh">Refresh</string>
     
     <!-- Pengguna Activity -->
     <string name="title_activity_user">Pengguna</string>
+    <string name="action_add_account">Tambah</string>
+    <string name="string_loaded">Tidak ada data tersedia</string>
     
     <!-- Pengaturan Activity -->
     <string name="title_activity_setting">Pengaturan</string>
