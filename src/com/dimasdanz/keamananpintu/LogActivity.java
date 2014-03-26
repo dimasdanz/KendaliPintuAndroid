@@ -18,7 +18,10 @@ import com.dimasdanz.keamananpintu.util.JSONParser;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
@@ -36,6 +39,25 @@ public class LogActivity extends Activity implements OnGroupExpandListener{
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		expListView = (ExpandableListView) findViewById(R.id.expListViewLog);
 		new getLogDate().execute();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.log, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_refresh:
+			new getLogDate().execute();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
