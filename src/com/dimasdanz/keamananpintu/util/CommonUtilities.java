@@ -28,4 +28,8 @@ public final class CommonUtilities {
 	public static String getLogDetail(Context context){
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_get_detail_log";
 	}
+	
+	public static String getUserList(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_get_users/";
+	}
 }

@@ -1,8 +1,8 @@
 package com.dimasdanz.keamananpintu.logmodel;
 
 public class LogModel {
-	public String name = null;
-    public String time = null;
+	private String name = null;
+	private String time = null;
 
     public LogModel( String name, String time) {
         this.name = name;
