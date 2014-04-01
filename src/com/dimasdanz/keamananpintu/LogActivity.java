@@ -13,11 +13,13 @@ import org.json.JSONObject;
 import com.dimasdanz.keamananpintu.logmodel.LogExpandableListAdapter;
 import com.dimasdanz.keamananpintu.logmodel.LogModel;
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
+import com.dimasdanz.keamananpintu.util.DialogManager.DialogManagerListener;
 import com.dimasdanz.keamananpintu.util.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +28,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 
-public class LogActivity extends Activity implements OnGroupExpandListener{
+public class LogActivity extends FragmentActivity implements DialogManagerListener, OnGroupExpandListener{
 	LogExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
@@ -112,7 +114,7 @@ public class LogActivity extends Activity implements OnGroupExpandListener{
 		        expListView.setAdapter(listAdapter);
 		        expListView.setOnGroupExpandListener(LogActivity.this);
 			}else{
-				
+				CommonUtilities.dialogConnectionError(LogActivity.this);
 			}
 		}
 	}
@@ -155,5 +157,17 @@ public class LogActivity extends Activity implements OnGroupExpandListener{
 				
 			}
 		}
+	}
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog, ArrayList<String> al) {
+		
+	}
+
+	@Override
+	public void onDialogNegativeClick(DialogFragment dialog, int value) {
+		if(value == 0){
+			this.finish();
+		}		
 	}
 }

@@ -15,7 +15,6 @@ import com.dimasdanz.keamananpintu.util.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,16 +55,14 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 	
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		new sendDatatoServer(0).execute(Boolean.toString(isChecked));
-		Log.d("onCheckedChanged", Boolean.toString(isChecked));		
+		new sendDatatoServer(0).execute(Boolean.toString(isChecked));	
 	}
 
 	@Override
-	public void onDialogPositiveClick(DialogFragment dialog, String value) {
+	public void onDialogPositiveClick(DialogFragment dialog, ArrayList<String> al) {
 		EditText textAttempts = (EditText) findViewById(R.id.txtAttempts);
-		Log.d("PasswordAttempts", value);
-		new sendDatatoServer(1).execute(value);
-		textAttempts.setText(value);
+		new sendDatatoServer(1).execute(al.get(1));
+		textAttempts.setText(al.get(1));
 	}
 
 	@Override
@@ -77,17 +74,15 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 	
 	public void onClickButtonUnlock(View v){
 		new sendDatatoServer(2).execute();
-		Log.d("onClickButtonUnlock", "Clicked");
 	}
 	
 	public void onClickAttemptsSetting(View v){
+		ArrayList<String> al = new ArrayList<String>();
+		EditText pa = (EditText)findViewById(R.id.txtAttempts);
+		al.add(pa.getText().toString());
 		new DialogManager();
-		DialogFragment dialogInputAttempts = DialogManager.newInstance(2);
+		DialogFragment dialogInputAttempts = DialogManager.newInstance(2, al);
 		dialogInputAttempts.show(getSupportFragmentManager(), "InputPasswordAttempts");
-	}
-	
-	public void onClickRefresh(View v){
-		new GetDeviceStatus().execute();
 	}
 	
 	class GetDeviceStatus extends AsyncTask<Void, Void, Boolean> {
@@ -100,7 +95,6 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 		protected void onPreExecute() {
 			super.onPreExecute();
 			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
-			findViewById(R.id.layout_error_message).setVisibility(View.GONE);
 			findViewById(R.id.layout_device_locked).setVisibility(View.GONE);
 			findViewById(R.id.layout_condition).setVisibility(View.GONE);
 			findViewById(R.id.layout_attempts).setVisibility(View.GONE);
@@ -118,10 +112,8 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				Log.d("Device Status", json.toString());
 				return true;
 			}else{
-				Log.d("Device Status", "Failed");
 				return false;
 			}
 		}
@@ -131,7 +123,6 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 			if(result){
 				if(condition){
 					findViewById(R.id.layout_device_locked).setVisibility(View.VISIBLE);
-					findViewById(R.id.layout_error_message).setVisibility(View.GONE);
 					findViewById(R.id.layout_condition).setVisibility(View.GONE);
 					findViewById(R.id.layout_attempts).setVisibility(View.GONE);
 					findViewById(R.id.layout_status).setVisibility(View.GONE);
@@ -149,7 +140,7 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 					statusSwitch.setOnCheckedChangeListener(DeviceStatusActivity.this);
 				}
 			}else{
-				findViewById(R.id.layout_error_message).setVisibility(View.VISIBLE);
+				CommonUtilities.dialogConnectionError(DeviceStatusActivity.this);
 			}
 		}
 	}
@@ -188,7 +179,6 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 			}
 			
 			if(json != null){
-				Log.d("Server Response", json.toString());
 				try {
 					return json.getInt("response");
 				} catch (JSONException e) {
@@ -226,9 +216,7 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 				new GetDeviceStatus().execute();
 				break;
 			case 5:
-				new DialogManager();
-				DialogFragment dialogConError = DialogManager.newInstance(0);
-				dialogConError.show(getSupportFragmentManager(), "DeviceStatusConnectionError");
+				Toast.makeText(DeviceStatusActivity.this, R.string.toast_connection_error, Toast.LENGTH_SHORT).show();
 				break;
 			default:
 				break;
