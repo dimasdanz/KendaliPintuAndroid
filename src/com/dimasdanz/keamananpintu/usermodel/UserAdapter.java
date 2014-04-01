@@ -51,8 +51,10 @@ public class UserAdapter extends ArrayAdapter<UserModel>{
 		
 		TextView userID = (TextView) result.findViewById(R.id.lblUserID);
 		TextView userName = (TextView) result.findViewById(R.id.lblUserItem);
+		TextView userPass = (TextView) result.findViewById(R.id.lblUserPass);
 		userID.setText(um.getUserID());
 		userName.setText(um.getName());
+		userPass.setText(um.getPassword());
 		
 		return result;
 	}

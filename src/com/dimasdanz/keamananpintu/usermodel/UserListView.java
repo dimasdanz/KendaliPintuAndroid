@@ -66,7 +66,7 @@ public class UserListView extends ListView implements OnScrollListener{
 	public void setLoadedView(int resId) {
 		LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		loadedFooter = (View) inflater.inflate(resId, null);
-		this.addFooterView(loadedFooter);
+		this.addFooterView(loadedFooter, null, false);
 	}
 
 	
@@ -82,7 +82,7 @@ public class UserListView extends ListView implements OnScrollListener{
 		this.removeFooterView(footer);
 		if(data == null){
 			isLoaded = true;
-			this.addFooterView(loadedFooter);
+			this.addFooterView(loadedFooter, null, false);
 		}else{
 			adapter.addAll(data);
 			adapter.notifyDataSetChanged();
