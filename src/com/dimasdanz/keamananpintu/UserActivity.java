@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dimasdanz.keamananpintu.usermodel.UserAdapter;
+import com.dimasdanz.keamananpintu.usermodel.UserDialogManager;
 import com.dimasdanz.keamananpintu.usermodel.UserListView;
 import com.dimasdanz.keamananpintu.usermodel.UserModel;
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
@@ -16,14 +17,18 @@ import com.dimasdanz.keamananpintu.util.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class UserActivity extends Activity implements UserListView.EndlessListener{
+public class UserActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.usermodel.UserDialogManager.DialogManagerListener, UserListView.EndlessListener, OnItemClickListener{
 	UserListView userLv;
+	UserAdapter userAdp;
 	int current_page = 1;
 	
 	@Override
@@ -33,7 +38,7 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		userLv = (UserListView) findViewById(R.id.userListView);
-		
+		userLv.setOnItemClickListener(this);
 		new InitializeUserList().execute();
 	}
 
@@ -50,7 +55,8 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 				NavUtils.navigateUpFromSameTask(this);
 				return true;
 			case R.id.action_add_account:
-				//TODO Handle Add New User here
+				new UserDialogManager();
+				UserDialogManager.newInstance(null).show(getSupportFragmentManager(), "UserForm");
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -67,12 +73,12 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 			JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getUserList(getApplicationContext())+current_page, "GET", params);
 			if(json != null){
 				try {
-					Log.d("User", Integer.toString(json.getInt("response")));
 					if(json.getInt("response") == 1){
 						JSONArray userid = json.getJSONArray("userid");
 						JSONArray username = json.getJSONArray("username");
+						JSONArray userpass = json.getJSONArray("userpass");
 						for (int i = 0; i < userid.length(); i++) {
-							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString()));
+							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString(), userpass.getString(i).toString()));
 						}
 					}else{
 						return null;
@@ -98,7 +104,7 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 					userLv.addNewData(null);
 				}
 			}else{
-				//TODO Connection Error
+				CommonUtilities.dialogConnectionError(UserActivity.this);
 			}
 		}
 	}
@@ -116,7 +122,7 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			//TODO Add some cool progress bar here
+			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
 		}
 		
 		@Override
@@ -129,8 +135,9 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 					if(json.getInt("response") == 1){
 						JSONArray userid = json.getJSONArray("userid");
 						JSONArray username = json.getJSONArray("username");
+						JSONArray userpass = json.getJSONArray("userpass");
 						for (int i = 0; i < userid.length(); i++) {
-							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString()));
+							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString(), userpass.getString(i).toString()));
 						}
 						return userList;
 					}else{
@@ -150,8 +157,9 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 		protected void onPostExecute(List<UserModel> result) {			
 			super.onPostExecute(result);
 			if(con){
+				findViewById(R.id.layout_progress_bar).setVisibility(View.GONE);
 				if(result != null){
-					UserAdapter userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
+					userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
 					userLv.setLoadingView(R.layout.loading_layout);
 					userLv.setLoadedView(R.layout.loaded_layout);
 					userLv.setAdapter(userAdp);
@@ -159,8 +167,8 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 					userLv.setListener(UserActivity.this);
 				}else{
 					result = new ArrayList<UserModel>();
-					result.add(new UserModel("000", "User List Kosong"));
-					UserAdapter userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
+					result.add(new UserModel("000", "User List Kosong", "000"));
+					userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
 					userLv.setLoadingView(R.layout.loading_layout);
 					userLv.setLoadedView(R.layout.loaded_layout);
 					userLv.setAdapter(userAdp);
@@ -170,8 +178,30 @@ public class UserActivity extends Activity implements UserListView.EndlessListen
 				}
 				current_page += 1;
 			}else{
-				//TODO Connection Error
+				CommonUtilities.dialogConnectionError(UserActivity.this);
 			}
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		ArrayList<String> userData = new ArrayList<String>();
+		userData.add(userAdp.getItem(position).getUserID());
+		userData.add(userAdp.getItem(position).getName());
+		userData.add(userAdp.getItem(position).getPassword());
+		new UserDialogManager();
+		UserDialogManager.newInstance(userData).show(getSupportFragmentManager(), "UserForm");
+	}
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog,ArrayList<String> data) {
+		// TODO Submit data to server
+		
+	}
+
+	@Override
+	public void onDialogNegativeClick(DialogFragment dialog) {
+		// TODO Delete data maybe?
+		
 	}
 }
