@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class UniversalDialogManager extends DialogFragment{
 		switch (getArguments().getInt("type", 0)) {
 		case 1:
 			textHeader.setText(R.string.hint_dialog_attempt_input);
+			textInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 			break;
 		case 2:
 			textHeader.setText(R.string.hint_dialog_hostname_input);
