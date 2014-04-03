@@ -9,9 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
-import com.dimasdanz.keamananpintu.util.DialogManager;
-import com.dimasdanz.keamananpintu.util.DialogManager.DialogManagerListener;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.UniversalDialogManager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class DeviceStatusActivity extends FragmentActivity implements DialogManagerListener, OnCheckedChangeListener {
+public class DeviceStatusActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.util.UniversalDialogManager.DialogManagerListener, OnCheckedChangeListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,32 +56,23 @@ public class DeviceStatusActivity extends FragmentActivity implements DialogMana
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		new sendDatatoServer(0).execute(Boolean.toString(isChecked));	
 	}
-
-	@Override
-	public void onDialogPositiveClick(DialogFragment dialog, ArrayList<String> al) {
-		EditText textAttempts = (EditText) findViewById(R.id.txtAttempts);
-		new sendDatatoServer(1).execute(al.get(1));
-		textAttempts.setText(al.get(1));
-	}
-
-	@Override
-	public void onDialogNegativeClick(DialogFragment dialog, int value) {
-		if(value == 0){
-			this.finish();
-		}
-	}
 	
 	public void onClickButtonUnlock(View v){
 		new sendDatatoServer(2).execute();
 	}
 	
 	public void onClickAttemptsSetting(View v){
-		ArrayList<String> al = new ArrayList<String>();
 		EditText pa = (EditText)findViewById(R.id.txtAttempts);
-		al.add(pa.getText().toString());
-		new DialogManager();
-		DialogFragment dialogInputAttempts = DialogManager.newInstance(2, al);
+		new UniversalDialogManager();
+		DialogFragment dialogInputAttempts = UniversalDialogManager.newInstance(1, pa.getText().toString());
 		dialogInputAttempts.show(getSupportFragmentManager(), "InputPasswordAttempts");
+	}
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog, String data) {
+		new sendDatatoServer(1).execute(data);
+		EditText pa = (EditText)findViewById(R.id.txtAttempts);
+		pa.setText(data);
 	}
 	
 	class GetDeviceStatus extends AsyncTask<Void, Void, Boolean> {
