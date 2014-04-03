@@ -9,14 +9,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dimasdanz.keamananpintu.usermodel.UserAdapter;
+import com.dimasdanz.keamananpintu.usermodel.UserAsyncTask;
 import com.dimasdanz.keamananpintu.usermodel.UserDialogManager;
 import com.dimasdanz.keamananpintu.usermodel.UserListView;
 import com.dimasdanz.keamananpintu.usermodel.UserModel;
+import com.dimasdanz.keamananpintu.util.AsyncTaskListener;
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +29,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class UserActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.usermodel.UserDialogManager.DialogManagerListener, UserListView.EndlessListener, OnItemClickListener{
+public class UserActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.usermodel.UserDialogManager.DialogManagerListener, UserListView.EndlessListener, OnItemClickListener, AsyncTaskListener{
 	UserListView userLv;
 	UserAdapter userAdp;
 	int current_page = 1;
@@ -40,6 +43,7 @@ public class UserActivity extends FragmentActivity implements com.dimasdanz.keam
 		userLv = (UserListView) findViewById(R.id.userListView);
 		userLv.setOnItemClickListener(this);
 		new InitializeUserList().execute();
+		new UserAsyncTask(this).execute();
 	}
 
 	@Override
@@ -203,5 +207,15 @@ public class UserActivity extends FragmentActivity implements com.dimasdanz.keam
 	public void onDialogNegativeClick(DialogFragment dialog) {
 		// TODO Delete data maybe?
 		
+	}
+
+	@Override
+	public void onTaskProgress() {
+		Log.d("Progress", "Progress");
+	}
+
+	@Override
+	public void onTaskComplete() {
+		Log.d("Complete", "Complete");
 	}
 }
