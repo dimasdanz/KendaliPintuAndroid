@@ -2,6 +2,7 @@ package com.dimasdanz.keamananpintu;
 
 import com.dimasdanz.keamananpintu.util.SharedPreferencesManager;
 import com.dimasdanz.keamananpintu.util.UniversalDialogManager;
+import com.dimasdanz.keamananpintu.util.UniversalDialogManager.DialogManagerListener;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
-public class SettingsActivity extends FragmentActivity implements OnCheckedChangeListener, com.dimasdanz.keamananpintu.util.UniversalDialogManager.DialogManagerListener{
+public class SettingsActivity extends FragmentActivity implements OnCheckedChangeListener, DialogManagerListener{
 	private EditText hostnameText;
 	private Switch notificationSwitch;
 	

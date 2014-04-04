@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
 import com.dimasdanz.keamananpintu.util.UniversalDialogManager;
+import com.dimasdanz.keamananpintu.util.UniversalDialogManager.DialogManagerListener;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class DeviceStatusActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.util.UniversalDialogManager.DialogManagerListener, OnCheckedChangeListener {
+public class DeviceStatusActivity extends FragmentActivity implements DialogManagerListener, OnCheckedChangeListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

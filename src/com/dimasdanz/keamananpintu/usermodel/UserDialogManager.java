@@ -16,9 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class UserDialogManager extends DialogFragment{
-	DialogManagerListener mListener;
+	UserDialogManagerListener mListener;
 	
-	public interface DialogManagerListener {
+	public interface UserDialogManagerListener {
         public void onDialogPositiveClick(DialogFragment dialog, ArrayList<String> data);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
@@ -36,7 +36,7 @@ public class UserDialogManager extends DialogFragment{
 	public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (DialogManagerListener) activity;
+            mListener = (UserDialogManagerListener) activity;
         } catch (ClassCastException e) {
         	e.toString();
         }
