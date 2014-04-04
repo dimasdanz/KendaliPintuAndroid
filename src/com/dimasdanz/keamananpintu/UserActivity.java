@@ -3,23 +3,15 @@ package com.dimasdanz.keamananpintu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.dimasdanz.keamananpintu.usermodel.UserAdapter;
-import com.dimasdanz.keamananpintu.usermodel.UserAsyncTask;
+import com.dimasdanz.keamananpintu.usermodel.UserDialogManager.UserDialogManagerListener;
+import com.dimasdanz.keamananpintu.usermodel.UserLoadData;
+import com.dimasdanz.keamananpintu.usermodel.UserLoadData.UserLoadDataListener;
 import com.dimasdanz.keamananpintu.usermodel.UserDialogManager;
 import com.dimasdanz.keamananpintu.usermodel.UserListView;
 import com.dimasdanz.keamananpintu.usermodel.UserModel;
-import com.dimasdanz.keamananpintu.util.AsyncTaskListener;
-import com.dimasdanz.keamananpintu.util.CommonUtilities;
-import com.dimasdanz.keamananpintu.util.JSONParser;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,10 +21,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class UserActivity extends FragmentActivity implements com.dimasdanz.keamananpintu.usermodel.UserDialogManager.DialogManagerListener, UserListView.EndlessListener, OnItemClickListener, AsyncTaskListener{
+public class UserActivity extends FragmentActivity implements UserDialogManagerListener, UserListView.EndlessListener, OnItemClickListener, UserLoadDataListener{
 	UserListView userLv;
 	UserAdapter userAdp;
-	int current_page = 1;
+	Integer page = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +32,22 @@ public class UserActivity extends FragmentActivity implements com.dimasdanz.keam
 		setContentView(R.layout.activity_user);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		List<UserModel> initData = new ArrayList<UserModel>();
+		initData.add(new UserModel("0", "null", "0"));
+		
+		userAdp = new UserAdapter(UserActivity.this, initData, R.layout.list_item_user);
+		
 		userLv = (UserListView) findViewById(R.id.userListView);
 		userLv.setOnItemClickListener(this);
-		new InitializeUserList().execute();
-		new UserAsyncTask(this).execute();
+		
+		userLv.setLoadingView(R.layout.loading_layout);
+		userLv.setLoadedView(R.layout.loaded_layout);
+		userLv.setAdapter(userAdp);
+		
+		userLv.setListener(UserActivity.this);
+		
+		userAdp.clear();
+		new UserLoadData(this, page).execute();
 	}
 
 	@Override
@@ -66,125 +70,10 @@ public class UserActivity extends FragmentActivity implements com.dimasdanz.keam
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private class LoadUserList extends AsyncTask<String, Void, List<UserModel>> {
-		private Boolean con = true;
-		JSONParser jsonParser = new JSONParser();
-		
-		@Override
-		protected List<UserModel> doInBackground(String... args) {
-			List<UserModel> userList = new ArrayList<UserModel>();
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getUserList(getApplicationContext())+current_page, "GET", params);
-			if(json != null){
-				try {
-					if(json.getInt("response") == 1){
-						JSONArray userid = json.getJSONArray("userid");
-						JSONArray username = json.getJSONArray("username");
-						JSONArray userpass = json.getJSONArray("userpass");
-						for (int i = 0; i < userid.length(); i++) {
-							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString(), userpass.getString(i).toString()));
-						}
-					}else{
-						return null;
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}else{
-				con = false;
-				return null;
-			}
-			return userList;
-		}
-
-		@Override
-		protected void onPostExecute(List<UserModel> result) {			
-			super.onPostExecute(result);
-			if(con){
-				if(result != null){
-					current_page += 1;
-					userLv.addNewData(result);
-				}else{
-					userLv.addNewData(null);
-				}
-			}else{
-				CommonUtilities.dialogConnectionError(UserActivity.this);
-			}
-		}
-	}
 	
 	@Override
 	public void loadData() {
-		LoadUserList loadUl = new LoadUserList();
-		loadUl.execute();
-	}
-	
-	private class InitializeUserList extends AsyncTask<String, Void, List<UserModel>> {
-		private Boolean con = true;
-		JSONParser jsonParser = new JSONParser();
-		
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
-		}
-		
-		@Override
-		protected List<UserModel> doInBackground(String... args) {
-			List<UserModel> userList = new ArrayList<UserModel>();
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getUserList(getApplicationContext())+current_page, "GET", params);
-			if(json != null){
-				try {
-					if(json.getInt("response") == 1){
-						JSONArray userid = json.getJSONArray("userid");
-						JSONArray username = json.getJSONArray("username");
-						JSONArray userpass = json.getJSONArray("userpass");
-						for (int i = 0; i < userid.length(); i++) {
-							userList.add(new UserModel(userid.get(i).toString(), username.get(i).toString(), userpass.getString(i).toString()));
-						}
-						return userList;
-					}else{
-						return null;
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					return null;
-				}
-			}else{
-				con = false;
-				return null;
-			}
-		}
-
-		@Override
-		protected void onPostExecute(List<UserModel> result) {			
-			super.onPostExecute(result);
-			if(con){
-				findViewById(R.id.layout_progress_bar).setVisibility(View.GONE);
-				if(result != null){
-					userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
-					userLv.setLoadingView(R.layout.loading_layout);
-					userLv.setLoadedView(R.layout.loaded_layout);
-					userLv.setAdapter(userAdp);
-					
-					userLv.setListener(UserActivity.this);
-				}else{
-					result = new ArrayList<UserModel>();
-					result.add(new UserModel("000", "User List Kosong", "000"));
-					userAdp = new UserAdapter(UserActivity.this, result, R.layout.list_item_user);
-					userLv.setLoadingView(R.layout.loading_layout);
-					userLv.setLoadedView(R.layout.loaded_layout);
-					userLv.setAdapter(userAdp);
-					
-					userLv.setListener(UserActivity.this);
-					userLv.addNewData(null);
-				}
-				current_page += 1;
-			}else{
-				CommonUtilities.dialogConnectionError(UserActivity.this);
-			}
-		}
+		new UserLoadData(this, page).execute();
 	}
 
 	@Override
@@ -210,12 +99,21 @@ public class UserActivity extends FragmentActivity implements com.dimasdanz.keam
 	}
 
 	@Override
-	public void onTaskProgress() {
-		Log.d("Progress", "Progress");
+	public void onTaskProgress(){
+		if(page == 1){
+			findViewById(R.id.layout_progress_bar).setVisibility(View.VISIBLE);
+		}else{
+			findViewById(R.id.layout_progress_bar).setVisibility(View.GONE);
+		}
 	}
 
 	@Override
-	public void onTaskComplete() {
-		Log.d("Complete", "Complete");
+	public void onTaskComplete(List<UserModel> userModel){
+		if(userModel != null){
+			userLv.addNewData(userModel);
+			page += 1;
+		}else{
+			userLv.addNewData(null);
+		}
 	}
 }
