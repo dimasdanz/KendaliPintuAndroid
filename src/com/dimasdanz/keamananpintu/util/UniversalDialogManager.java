@@ -44,10 +44,13 @@ public class UniversalDialogManager extends DialogFragment{
         final View view = inflater.inflate(R.layout.dialog_input, null);
 		final TextView textHeader = (TextView) view.findViewById(R.id.txtHeaderDialog);
 		final EditText textInput = (EditText) view.findViewById(R.id.txtInput);
+		int title = R.string.string_hostname;
 		switch (getArguments().getInt("type", 0)) {
 		case 1:
 			textHeader.setText(R.string.hint_dialog_attempt_input);
 			textInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+			textInput.setHint(R.string.string_attempt);
+			title = R.string.string_attempt;
 			break;
 		case 2:
 			textHeader.setText(R.string.hint_dialog_hostname_input);
@@ -59,7 +62,7 @@ public class UniversalDialogManager extends DialogFragment{
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), 4);
 		builder.setIcon(android.R.drawable.ic_dialog_info);
-    	builder.setTitle(R.string.string_hostname);
+    	builder.setTitle(title);
 		builder.setView(view);
 		builder.setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
         	public void onClick(DialogInterface dialog, int id) {
