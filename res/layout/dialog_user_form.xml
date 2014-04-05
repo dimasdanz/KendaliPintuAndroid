@@ -42,7 +42,8 @@
         android:hint="@string/hint_password_input"
         android:inputType="number"
         android:textColor="#FFFFFF"
-        android:textColorHint="#CCCCCC"/>
+        android:textColorHint="#CCCCCC"
+        android:maxLength="5"/>
 
     <TextView
         android:id="@+id/textView1"
