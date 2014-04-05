@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 public class UserListView extends ListView implements OnScrollListener{
 	private View footer;
-	private View loadedFooter;
 	private boolean isLoading;
 	private boolean isLoaded;
 	private EndlessListener listener;
@@ -62,19 +61,11 @@ public class UserListView extends ListView implements OnScrollListener{
 		footer = (View) inflater.inflate(resId, null);
 		this.addFooterView(footer);
 	}
-	
-	public void setLoadedView(int resId) {
-		LayoutInflater inflater = (LayoutInflater) super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		loadedFooter = (View) inflater.inflate(resId, null);
-		this.addFooterView(loadedFooter, null, false);
-	}
 
-	
 	public void setAdapter(UserAdapter adapter) {		
 		super.setAdapter(adapter);
 		this.adapter = adapter;
 		this.removeFooterView(footer);
-		this.removeFooterView(loadedFooter);
 	}
 
 	
@@ -82,7 +73,6 @@ public class UserListView extends ListView implements OnScrollListener{
 		this.removeFooterView(footer);
 		if(data == null){
 			isLoaded = true;
-			this.addFooterView(loadedFooter, null, false);
 		}else{
 			adapter.addAll(data);
 			adapter.notifyDataSetChanged();
