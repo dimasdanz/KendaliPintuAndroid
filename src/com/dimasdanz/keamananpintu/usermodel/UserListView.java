@@ -30,7 +30,7 @@ public class UserListView extends ListView implements OnScrollListener{
 	}
 
 	public UserListView(Context context) {
-		super(context);		
+		super(context);
 		this.setOnScrollListener(this);
 	}
 	

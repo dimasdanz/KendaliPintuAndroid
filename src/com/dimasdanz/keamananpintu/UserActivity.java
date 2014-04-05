@@ -37,7 +37,7 @@ public class UserActivity extends FragmentActivity implements UserDialogManagerL
 		
 		userAdp = new UserAdapter(UserActivity.this, initData, R.layout.list_item_user);
 		
-		userLv = (UserListView) findViewById(R.id.userListView);
+		userLv = (UserListView)findViewById(R.id.userListView);
 		userLv.setOnItemClickListener(this);
 		
 		userLv.setLoadingView(R.layout.loading_layout);

@@ -41,7 +41,6 @@ public class UserLoadData extends AsyncTask<String, Void, List<UserModel>>{
 	
 	@Override
 	protected List<UserModel> doInBackground(String... args) {
-		
 		List<UserModel> userList = new ArrayList<UserModel>();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getUserList(activity)+current_page, "GET", params);
