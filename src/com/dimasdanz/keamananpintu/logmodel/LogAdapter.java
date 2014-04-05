@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-public class LogExpandableListAdapter extends BaseExpandableListAdapter {
+public class LogAdapter extends BaseExpandableListAdapter {
 	private Context _context;
     private List<String> _listDataHeader;
     private HashMap<String, List<LogModel>> _listDataChild;
  
-    public LogExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<LogModel>> listChildData) {
+    public LogAdapter(Context context, List<String> listDataHeader, HashMap<String, List<LogModel>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
