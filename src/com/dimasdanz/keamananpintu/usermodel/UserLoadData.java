@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -43,7 +44,7 @@ public class UserLoadData extends AsyncTask<String, Void, List<UserModel>>{
 	protected List<UserModel> doInBackground(String... args) {
 		List<UserModel> userList = new ArrayList<UserModel>();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getUserList(activity)+current_page, "GET", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getUserList(activity)+current_page, "GET", params);
 		if(json != null){
 			try {
 				if(json.getInt("response") == 1){

@@ -8,8 +8,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -38,14 +38,14 @@ public class DeviceStatusSendData extends AsyncTask<String, Void, Integer>{
 		switch(type) {
 		case 0:
 			params.add(new BasicNameValuePair("status", args[0]));
-			json = jsonParser.makeHttpRequest(CommonUtilities.changeDeviceStatus(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceStatus(activity), "POST", params);
 			break;
 		case 1:
 			params.add(new BasicNameValuePair("password_attempts", args[0]));
-			json = jsonParser.makeHttpRequest(CommonUtilities.changeDeviceAttempts(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceAttempts(activity), "POST", params);
 			break;
 		case 2:
-			json = jsonParser.makeHttpRequest(CommonUtilities.unlockDevice(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.unlockDevice(activity), "POST", params);
 			break;
 		default:
 			break;

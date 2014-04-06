@@ -7,8 +7,8 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -39,7 +39,7 @@ public class DeviceStatusLoadData extends AsyncTask<Void, Void, DeviceStatusMode
 	protected DeviceStatusModel doInBackground(Void... args) {
 		DeviceStatusModel deviceStatusModel = null;
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.deviceStatusUrl(activity),"GET", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.deviceStatusUrl(activity),"GET", params);
 		if(json != null){
 			try {
 				deviceStatusModel = new DeviceStatusModel(json.getBoolean("status"), json.getInt("password_attempts"), json.getBoolean("condition"));

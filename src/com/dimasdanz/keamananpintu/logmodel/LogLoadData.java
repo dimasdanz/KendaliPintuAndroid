@@ -8,8 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -42,7 +42,7 @@ public class LogLoadData extends AsyncTask<Void, Void, ArrayList<String>>{
 	@Override
 	protected ArrayList<String> doInBackground(Void... args) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getLogDate(activity),"GET", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDate(activity),"GET", params);
 		if(json != null){
 			try {
 				JSONArray date = json.getJSONArray("date");

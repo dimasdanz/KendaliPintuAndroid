@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.dimasdanz.keamananpintu.util.CommonUtilities;
 import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -36,7 +36,7 @@ public class LogLoadDetail extends AsyncTask<String, Void, List<LogModel>> {
 	protected List<LogModel> doInBackground(String... args) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("date", args[0]));
-		JSONObject json = jsonParser.makeHttpRequest(CommonUtilities.getLogDetail(activity),"POST", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDetail(activity),"POST", params);
 		if(json != null){
 			try {
 				JSONArray name = json.getJSONArray("name");
