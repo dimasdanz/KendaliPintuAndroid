@@ -1,55 +1,22 @@
 package com.dimasdanz.keamananpintu.util;
 
+import com.dimasdanz.keamananpintu.LogActivity;
 import com.dimasdanz.keamananpintu.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.TaskStackBuilder;
 
 public final class CommonUtilities {
-
-	private CommonUtilities() {}
-	
-	public static String deviceStatusUrl(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_status";
-	}
-	
-	public static String changeDeviceStatus(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_change_status";
-	}
-	
-	public static String changeDeviceAttempts(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_change_attempts";
-	}
-	
-	public static String unlockDevice(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_unlock";
-	}
-	
-	public static String getLogDate(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_get_log_date";
-	}
-	
-	public static String getLogDetail(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_get_detail_log";
-	}
-	
-	public static String getUserList(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_get_users/";
-	}
-	
-	public static String getInsertUser(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_insert_user";
-	}
-	
-	public static String getUpdateUser(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_update_user";
-	}
-	
-	public static String getDeleteUser(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_delete_user";
-	}
+	private static int msgCounter = 0;
 	
 	public static void dialogConnectionError(final Context context){
 		AlertDialog.Builder builder = new AlertDialog.Builder(context, 4);
@@ -64,5 +31,38 @@ public final class CommonUtilities {
         });
     	AlertDialog alert = builder.create();
     	alert.show();
+	}
+	
+	public static void resetNotificationCounter(){
+		msgCounter = 0;
+	}
+	
+	public static void generateNotification(Context context, String message){
+		NotificationManager manager;
+		int notificationID = 73;
+		
+		Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_stat_notification);
+		
+		Notification.Builder builder = new Notification.Builder(context);
+		Intent resultIntent = new Intent(context, LogActivity.class);		
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+		
+		stackBuilder.addParentStack(LogActivity.class);
+		stackBuilder.addNextIntent(resultIntent );
+		
+		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		builder.setAutoCancel(true);
+		builder.setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND);
+		builder.setContentTitle("Log");
+		builder.setContentText(message);
+		builder.setTicker("New Log");
+		builder.setNumber(++msgCounter);
+		builder.setSmallIcon(R.drawable.ic_stat_notification);
+		builder.setLargeIcon(largeIcon);
+		builder.setContentIntent(resultPendingIntent);
+		
+		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		manager.notify(notificationID, builder.build());
 	}
 }
