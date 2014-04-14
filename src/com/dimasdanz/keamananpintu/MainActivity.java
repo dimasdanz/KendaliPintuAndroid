@@ -1,5 +1,7 @@
 package com.dimasdanz.keamananpintu;
 
+import com.dimasdanz.keamananpintu.util.SharedPreferencesManager;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +14,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		if(!SharedPreferencesManager.getLoggedInPrefs(this)){
+			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+	        startActivity(intent);
+		}
 	}
 
 	@Override
