@@ -13,6 +13,11 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -28,29 +33,31 @@ public final class R {
         public static final int ic_stat_notification=0x7f020004;
     }
     public static final class id {
-        public static final int action_add_account=0x7f080024;
-        public static final int action_refresh=0x7f080023;
-        public static final int action_settings=0x7f080022;
-        public static final int btnLog=0x7f080011;
-        public static final int btnPengaturan=0x7f080013;
-        public static final int btnPengguna=0x7f080012;
-        public static final int btnStatusPerangkat=0x7f080010;
+        public static final int action_about=0x7f080027;
+        public static final int action_add_account=0x7f080028;
+        public static final int action_refresh=0x7f080026;
+        public static final int action_settings=0x7f080025;
+        public static final int btnLog=0x7f080014;
+        public static final int btnLogin=0x7f080012;
+        public static final int btnPengaturan=0x7f080016;
+        public static final int btnPengguna=0x7f080015;
+        public static final int btnStatusPerangkat=0x7f080013;
         public static final int button1=0x7f08000b;
         public static final int expListViewLog=0x7f08000f;
-        public static final int hostname_text=0x7f080014;
+        public static final int hostname_text=0x7f080017;
         public static final int layout_activity_device_status=0x7f080000;
         public static final int layout_attempts=0x7f080002;
         public static final int layout_condition=0x7f080001;
         public static final int layout_device_locked=0x7f080009;
         public static final int layout_progress_bar=0x7f08000c;
         public static final int layout_status=0x7f080005;
-        public static final int lblListHeaderLog=0x7f08001c;
-        public static final int lblListItemDetailLog=0x7f08001e;
-        public static final int lblListItemLog=0x7f08001d;
-        public static final int lblUserID=0x7f08001f;
-        public static final int lblUserItem=0x7f080020;
-        public static final int lblUserPass=0x7f080021;
-        public static final int notifSwitch=0x7f080015;
+        public static final int lblListHeaderLog=0x7f08001f;
+        public static final int lblListItemDetailLog=0x7f080021;
+        public static final int lblListItemLog=0x7f080020;
+        public static final int lblUserID=0x7f080022;
+        public static final int lblUserItem=0x7f080023;
+        public static final int lblUserPass=0x7f080024;
+        public static final int notifSwitch=0x7f080018;
         public static final int progressBar1=0x7f08000d;
         public static final int swStatus=0x7f080008;
         public static final int textView1=0x7f080003;
@@ -59,33 +66,37 @@ public final class R {
         public static final int textView4=0x7f08000e;
         public static final int txtAttempts=0x7f080007;
         public static final int txtCondition=0x7f080004;
-        public static final int txtHeaderDialog=0x7f080017;
-        public static final int txtInput=0x7f080018;
-        public static final int txtUserID=0x7f080019;
-        public static final int txtUserName=0x7f08001a;
-        public static final int txtUserPass=0x7f08001b;
-        public static final int userListView=0x7f080016;
+        public static final int txtHeaderDialog=0x7f08001a;
+        public static final int txtInput=0x7f08001b;
+        public static final int txtUserID=0x7f08001c;
+        public static final int txtUserName=0x7f08001d;
+        public static final int txtUserPass=0x7f08001e;
+        public static final int userListView=0x7f080019;
+        public static final int user_id=0x7f080010;
+        public static final int user_pass=0x7f080011;
     }
     public static final class layout {
         public static final int activity_device_status=0x7f030000;
         public static final int activity_log=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_settings=0x7f030003;
-        public static final int activity_user=0x7f030004;
-        public static final int dialog_input=0x7f030005;
-        public static final int dialog_user_form=0x7f030006;
-        public static final int list_group_log=0x7f030007;
-        public static final int list_item_log=0x7f030008;
-        public static final int list_item_user=0x7f030009;
-        public static final int loaded_layout=0x7f03000a;
-        public static final int loading_layout=0x7f03000b;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_settings=0x7f030004;
+        public static final int activity_user=0x7f030005;
+        public static final int dialog_input=0x7f030006;
+        public static final int dialog_user_form=0x7f030007;
+        public static final int list_group_log=0x7f030008;
+        public static final int list_item_log=0x7f030009;
+        public static final int list_item_user=0x7f03000a;
+        public static final int loaded_layout=0x7f03000b;
+        public static final int loading_layout=0x7f03000c;
     }
     public static final class menu {
         public static final int device_status=0x7f070000;
         public static final int log=0x7f070001;
-        public static final int main=0x7f070002;
-        public static final int settings=0x7f070003;
-        public static final int user=0x7f070004;
+        public static final int login=0x7f070002;
+        public static final int main=0x7f070003;
+        public static final int settings=0x7f070004;
+        public static final int user=0x7f070005;
     }
     public static final class string {
         public static final int action_add_account=0x7f05001f;
@@ -107,9 +118,13 @@ public final class R {
         public static final int hint_dialog_attempt_input=0x7f050015;
         public static final int hint_dialog_hostname_input=0x7f050028;
         public static final int hint_dialog_password=0x7f050022;
+        public static final int hint_login_user=0x7f05002c;
         public static final int hint_password_input=0x7f050024;
         public static final int hint_username_input=0x7f050023;
         public static final int loading_message=0x7f050005;
+        /**  Menu Item 
+         */
+        public static final int menu_action_about=0x7f05002d;
         public static final int message_dialog_connection_error=0x7f050008;
         public static final int na=0x7f050001;
         public static final int refresh=0x7f050007;
@@ -128,6 +143,9 @@ public final class R {
         /**  Log Activity 
          */
         public static final int title_activity_log=0x7f05001c;
+        /**  Login Activity 
+         */
+        public static final int title_activity_login=0x7f05002b;
         /**  Pengaturan Activity 
          */
         public static final int title_activity_setting=0x7f050025;
@@ -148,11 +166,13 @@ public final class R {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
