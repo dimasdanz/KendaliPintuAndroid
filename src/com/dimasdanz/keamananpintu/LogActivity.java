@@ -43,6 +43,7 @@ public class LogActivity extends FragmentActivity implements OnGroupExpandListen
 		expListView = (ExpandableListView) findViewById(R.id.expListViewLog);
         expListView.setAdapter(listAdapter);
 		expListView.setOnGroupExpandListener(LogActivity.this);
+		CommonUtilities.resetNotificationCounter();
 		
 		new LogLoadData(this).execute();
 	}
