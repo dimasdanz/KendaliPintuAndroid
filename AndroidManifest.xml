@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dimasdanz.keamananpintu"
     android:versionCode="1"
@@ -9,7 +9,14 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.dimasdanz.keamananpintu.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.dimasdanz.keamananpintu.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -56,6 +63,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dimasdanz.keamananpintu.MainActivity" />
         </activity>
-    </application>
+        <activity android:name="com.dimasdanz.keamananpintu.LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>        
 
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name=".GcmIntentService" />
+            </intent-filter>
+        </receiver>
+
+    </application>
 </manifest>
