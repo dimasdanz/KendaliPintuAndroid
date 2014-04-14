@@ -16,6 +16,8 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.TaskStackBuilder;
 
 public final class CommonUtilities {
+	public static String TAG_NO_ACCOUNT = "NO_ACCOUNT";
+	public static String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
 	private static int msgCounter = 0;
 	
 	public static void dialogConnectionError(final Context context){
