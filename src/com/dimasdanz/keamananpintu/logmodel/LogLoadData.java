@@ -42,7 +42,7 @@ public class LogLoadData extends AsyncTask<Void, Void, ArrayList<String>>{
 	@Override
 	protected ArrayList<String> doInBackground(Void... args) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDate(activity),"GET", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDateUrl(activity),"GET", params);
 		if(json != null){
 			try {
 				JSONArray date = json.getJSONArray("date");

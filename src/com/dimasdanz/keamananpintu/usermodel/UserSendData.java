@@ -36,16 +36,16 @@ public class UserSendData extends AsyncTask<String, Void, Boolean>{
 			if(args[0].isEmpty()){
 				params.add(new BasicNameValuePair("name", args[1]));
 				params.add(new BasicNameValuePair("password", args[2]));
-				json = jsonParser.makeHttpRequest(ServerUtilities.getInsertUser(activity), "POST", params);
+				json = jsonParser.makeHttpRequest(ServerUtilities.getInsertUserUrl(activity), "POST", params);
 			}else{
 				params.add(new BasicNameValuePair("id", args[0]));
 				params.add(new BasicNameValuePair("name", args[1]));
 				params.add(new BasicNameValuePair("password", args[2]));
-				json = jsonParser.makeHttpRequest(ServerUtilities.getUpdateUser(activity), "POST", params);
+				json = jsonParser.makeHttpRequest(ServerUtilities.getUpdateUserUrl(activity), "POST", params);
 			}
 		}else{
 			params.add(new BasicNameValuePair("id", args[1]));
-			json = jsonParser.makeHttpRequest(ServerUtilities.getDeleteUser(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.getDeleteUserUrl(activity), "POST", params);
 		}
 		
 		if(json != null){

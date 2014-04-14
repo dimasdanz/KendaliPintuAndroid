@@ -36,7 +36,7 @@ public class LogLoadDetail extends AsyncTask<String, Void, List<LogModel>> {
 	protected List<LogModel> doInBackground(String... args) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("date", args[0]));
-		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDetail(activity),"POST", params);
+		JSONObject json = jsonParser.makeHttpRequest(ServerUtilities.getLogDetailUrl(activity),"POST", params);
 		if(json != null){
 			try {
 				JSONArray name = json.getJSONArray("name");

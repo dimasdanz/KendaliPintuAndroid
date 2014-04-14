@@ -38,14 +38,14 @@ public class DeviceStatusSendData extends AsyncTask<String, Void, Integer>{
 		switch(type) {
 		case 0:
 			params.add(new BasicNameValuePair("status", args[0]));
-			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceStatus(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceStatusUrl(activity), "POST", params);
 			break;
 		case 1:
 			params.add(new BasicNameValuePair("password_attempts", args[0]));
-			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceAttempts(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.changeDeviceAttemptsUrl(activity), "POST", params);
 			break;
 		case 2:
-			json = jsonParser.makeHttpRequest(ServerUtilities.unlockDevice(activity), "POST", params);
+			json = jsonParser.makeHttpRequest(ServerUtilities.unlockDeviceUrl(activity), "POST", params);
 			break;
 		default:
 			break;
