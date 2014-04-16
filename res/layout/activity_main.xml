@@ -9,16 +9,6 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/btnStatusPerangkat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/action_device_status"
-        android:onClick="onClickButtonStatusPerangkat" />
-
-    <Button
         android:id="@+id/btnLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,5 +37,25 @@
         android:layout_below="@+id/btnPengguna"
         android:text="@string/action_settings"
         android:onClick="onClickButtonPengaturan" />
+
+    <Button
+        android:id="@+id/btnBuka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/btnStatusPerangkat"
+        android:onClick="onClickButtonBukaPintu"
+        android:text="@string/action_open_door" />
+
+    <Button
+        android:id="@+id/btnStatusPerangkat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/btnLog"
+        android:layout_below="@+id/btnBuka"
+        android:onClick="onClickButtonStatusPerangkat"
+        android:text="@string/action_device_status" />
     
 </RelativeLayout>

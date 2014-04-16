@@ -33,31 +33,32 @@ public final class R {
         public static final int ic_stat_notification=0x7f020004;
     }
     public static final class id {
-        public static final int action_about=0x7f080027;
-        public static final int action_add_account=0x7f080028;
-        public static final int action_refresh=0x7f080026;
-        public static final int action_settings=0x7f080025;
-        public static final int btnLog=0x7f080014;
+        public static final int action_about=0x7f080028;
+        public static final int action_add_account=0x7f080029;
+        public static final int action_refresh=0x7f080027;
+        public static final int action_settings=0x7f080026;
+        public static final int btnBuka=0x7f080017;
+        public static final int btnLog=0x7f080013;
         public static final int btnLogin=0x7f080012;
         public static final int btnPengaturan=0x7f080016;
         public static final int btnPengguna=0x7f080015;
-        public static final int btnStatusPerangkat=0x7f080013;
+        public static final int btnStatusPerangkat=0x7f080014;
         public static final int button1=0x7f08000b;
         public static final int expListViewLog=0x7f08000f;
-        public static final int hostname_text=0x7f080017;
+        public static final int hostname_text=0x7f080018;
         public static final int layout_activity_device_status=0x7f080000;
         public static final int layout_attempts=0x7f080002;
         public static final int layout_condition=0x7f080001;
         public static final int layout_device_locked=0x7f080009;
         public static final int layout_progress_bar=0x7f08000c;
         public static final int layout_status=0x7f080005;
-        public static final int lblListHeaderLog=0x7f08001f;
-        public static final int lblListItemDetailLog=0x7f080021;
-        public static final int lblListItemLog=0x7f080020;
-        public static final int lblUserID=0x7f080022;
-        public static final int lblUserItem=0x7f080023;
-        public static final int lblUserPass=0x7f080024;
-        public static final int notifSwitch=0x7f080018;
+        public static final int lblListHeaderLog=0x7f080020;
+        public static final int lblListItemDetailLog=0x7f080022;
+        public static final int lblListItemLog=0x7f080021;
+        public static final int lblUserID=0x7f080023;
+        public static final int lblUserItem=0x7f080024;
+        public static final int lblUserPass=0x7f080025;
+        public static final int notifSwitch=0x7f080019;
         public static final int progressBar1=0x7f08000d;
         public static final int swStatus=0x7f080008;
         public static final int textView1=0x7f080003;
@@ -66,12 +67,12 @@ public final class R {
         public static final int textView4=0x7f08000e;
         public static final int txtAttempts=0x7f080007;
         public static final int txtCondition=0x7f080004;
-        public static final int txtHeaderDialog=0x7f08001a;
-        public static final int txtInput=0x7f08001b;
-        public static final int txtUserID=0x7f08001c;
-        public static final int txtUserName=0x7f08001d;
-        public static final int txtUserPass=0x7f08001e;
-        public static final int userListView=0x7f080019;
+        public static final int txtHeaderDialog=0x7f08001b;
+        public static final int txtInput=0x7f08001c;
+        public static final int txtUserID=0x7f08001d;
+        public static final int txtUserName=0x7f08001e;
+        public static final int txtUserPass=0x7f08001f;
+        public static final int userListView=0x7f08001a;
         public static final int user_id=0x7f080010;
         public static final int user_pass=0x7f080011;
     }
@@ -99,14 +100,15 @@ public final class R {
         public static final int user=0x7f070005;
     }
     public static final class string {
-        public static final int action_add_account=0x7f05001f;
+        public static final int action_add_account=0x7f050020;
+        public static final int action_device_status=0x7f05000a;
+        public static final int action_log=0x7f05000b;
         /**  Main Activity 
          */
-        public static final int action_device_status=0x7f050009;
-        public static final int action_log=0x7f05000a;
-        public static final int action_refresh=0x7f05001d;
-        public static final int action_settings=0x7f05000c;
-        public static final int action_user=0x7f05000b;
+        public static final int action_open_door=0x7f050009;
+        public static final int action_refresh=0x7f05001e;
+        public static final int action_settings=0x7f05000d;
+        public static final int action_user=0x7f05000c;
         /**  General 
          */
         public static final int app_name=0x7f050000;
@@ -114,53 +116,53 @@ public final class R {
         public static final int change=0x7f050002;
         public static final int close=0x7f050006;
         public static final int delete=0x7f050004;
-        public static final int dialog_title_userform=0x7f050021;
-        public static final int hint_dialog_attempt_input=0x7f050015;
-        public static final int hint_dialog_hostname_input=0x7f050028;
-        public static final int hint_dialog_password=0x7f050022;
-        public static final int hint_login_user=0x7f05002c;
-        public static final int hint_password_input=0x7f050024;
-        public static final int hint_username_input=0x7f050023;
+        public static final int dialog_title_userform=0x7f050022;
+        public static final int hint_dialog_attempt_input=0x7f050016;
+        public static final int hint_dialog_hostname_input=0x7f050029;
+        public static final int hint_dialog_password=0x7f050023;
+        public static final int hint_login_user=0x7f05002d;
+        public static final int hint_password_input=0x7f050025;
+        public static final int hint_username_input=0x7f050024;
         public static final int loading_message=0x7f050005;
         /**  Menu Item 
          */
-        public static final int menu_action_about=0x7f05002d;
+        public static final int menu_action_about=0x7f05002e;
         public static final int message_dialog_connection_error=0x7f050008;
         public static final int na=0x7f050001;
         public static final int refresh=0x7f050007;
-        public static final int string_attempt=0x7f050011;
-        public static final int string_condition=0x7f05000f;
-        public static final int string_condition_value_false=0x7f050013;
-        public static final int string_condition_value_true=0x7f050012;
-        public static final int string_hostname=0x7f050026;
-        public static final int string_loaded=0x7f050020;
-        public static final int string_receive_notifications=0x7f050027;
-        public static final int string_status=0x7f05000e;
-        public static final int string_unlock=0x7f050010;
+        public static final int string_attempt=0x7f050012;
+        public static final int string_condition=0x7f050010;
+        public static final int string_condition_value_false=0x7f050014;
+        public static final int string_condition_value_true=0x7f050013;
+        public static final int string_hostname=0x7f050027;
+        public static final int string_loaded=0x7f050021;
+        public static final int string_receive_notifications=0x7f050028;
+        public static final int string_status=0x7f05000f;
+        public static final int string_unlock=0x7f050011;
         /**  Status Perangkat Activity 
          */
-        public static final int title_activity_device_status=0x7f05000d;
+        public static final int title_activity_device_status=0x7f05000e;
         /**  Log Activity 
          */
-        public static final int title_activity_log=0x7f05001c;
+        public static final int title_activity_log=0x7f05001d;
         /**  Login Activity 
          */
-        public static final int title_activity_login=0x7f05002b;
+        public static final int title_activity_login=0x7f05002c;
         /**  Pengaturan Activity 
          */
-        public static final int title_activity_setting=0x7f050025;
+        public static final int title_activity_setting=0x7f050026;
         /**  Pengguna Activity 
          */
-        public static final int title_activity_user=0x7f05001e;
-        public static final int title_dialog_server_error=0x7f050014;
-        public static final int toast_connection_error=0x7f05001b;
-        public static final int toast_device_attempts_change=0x7f05001a;
-        public static final int toast_device_locked=0x7f050016;
-        public static final int toast_device_status_off=0x7f050019;
-        public static final int toast_device_status_on=0x7f050018;
-        public static final int toast_device_unlocked=0x7f050017;
-        public static final int toast_notification_setting_off=0x7f05002a;
-        public static final int toast_notification_setting_on=0x7f050029;
+        public static final int title_activity_user=0x7f05001f;
+        public static final int title_dialog_server_error=0x7f050015;
+        public static final int toast_connection_error=0x7f05001c;
+        public static final int toast_device_attempts_change=0x7f05001b;
+        public static final int toast_device_locked=0x7f050017;
+        public static final int toast_device_status_off=0x7f05001a;
+        public static final int toast_device_status_on=0x7f050019;
+        public static final int toast_device_unlocked=0x7f050018;
+        public static final int toast_notification_setting_off=0x7f05002b;
+        public static final int toast_notification_setting_on=0x7f05002a;
     }
     public static final class style {
         /** 

@@ -13,6 +13,7 @@
     <string name="message_dialog_connection_error">1. Koneksi internet bermasalah\n2. Hostname belum dikonfigurasi\n3. Konfigurasi hostname salah\n4. Server mungkin tidak tersedia</string>
 
     <!-- Main Activity -->
+    <string name="action_open_door">Buka Pintu</string>
     <string name="action_device_status">Status Perangkat</string>
     <string name="action_log">Log</string>
     <string name="action_user">Pengguna</string>
