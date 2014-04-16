@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPreferencesManager {
-	public static final String prefs_name = "KeamananPintuPrefs";
-	public static final String hostname = "hostname";
-	public static final String receive_notifications = "notifications";
-	public static final String isLoggedIn = "logged_in";
-	public static final String username_id = "username_id";
+	private static final String prefs_name = "KeamananPintuPrefs";
+	private static final String property_hostname = "hostname";
+	private static final String property_receiveNotifications = "notifications";
+	private static final String property_isLoggedIn = "logged_in";
+	private static final String property_usernameId = "username_id";
+	private static final String property_appVersion = "appVersion";
+	private static final String property_regId = "registration_id";
 	
 	private SharedPreferencesManager() {}
 
@@ -18,36 +20,58 @@ public class SharedPreferencesManager {
 
     public static void setHostnamePrefs(Context context, String string) {
         final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString(hostname, string);
+        editor.putString(property_hostname, string);
         editor.commit();
     }
     
     public static String getHostnamePrefs(Context context) {
-	    return "http://"+getSharedPreferences(context).getString(hostname , "192.168.2.4");
+	    return "http://"+getSharedPreferences(context).getString(property_hostname , "192.168.2.4");
 	}
 
 	public static void setNotificationPrefs(Context context, Boolean b) {
         final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putBoolean(receive_notifications, b);
+        editor.putBoolean(property_receiveNotifications, b);
         editor.commit();
     }
 
 	public static Boolean getNotificationPrefs(Context context) {
-	    return getSharedPreferences(context).getBoolean(receive_notifications, true);
+	    return getSharedPreferences(context).getBoolean(property_receiveNotifications, true);
 	}
 	
 	public static void setLoggedIn(Context context, Boolean b, String s){
 		final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-		editor.putBoolean(isLoggedIn, b);
-		editor.putString(username_id, s);
+		editor.putBoolean(property_isLoggedIn, b);
+		editor.putString(property_usernameId, s);
 		editor.commit();
 	}
 	
 	public static Boolean getLoggedInPrefs(Context context){
-		return getSharedPreferences(context).getBoolean(isLoggedIn, false);
+		return getSharedPreferences(context).getBoolean(property_isLoggedIn, false);
 	}
 	
 	public static int getUsernameIdPrefs(Context context){
-		return getSharedPreferences(context).getInt(username_id, 0);
+		return getSharedPreferences(context).getInt(property_usernameId, 0);
 	}
+	
+	public static void setRegId(Context context, String regId) {
+		final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        int appVersion = CommonUtilities.getAppVersion(context);
+        editor.putString(property_regId, regId);
+        editor.putInt(property_appVersion, appVersion);
+        editor.commit();
+    }
+	
+	public static String getRegId(Context context) {
+		final SharedPreferences prefs = getSharedPreferences(context);
+        String registrationId = prefs.getString(property_regId, "");
+        if (registrationId.isEmpty()) {
+            return "";
+        }
+        int registeredVersion = prefs.getInt(property_appVersion, Integer.MIN_VALUE);
+        int currentVersion = CommonUtilities.getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            return "";
+        }
+        return registrationId;
+    }
 }
