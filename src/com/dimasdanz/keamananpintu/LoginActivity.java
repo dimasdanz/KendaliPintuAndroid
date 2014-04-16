@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ public class LoginActivity extends Activity implements LoginAuthListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		Log.d("Test", SharedPreferencesManager.getRegId(this));
 	}
 
 	@Override
@@ -32,8 +34,8 @@ public class LoginActivity extends Activity implements LoginAuthListener{
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_about:
+		int itemId = item.getItemId();
+		if (itemId == R.id.action_about) {
 			//About Activity
 			return true;
 		}

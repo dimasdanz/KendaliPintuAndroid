@@ -56,11 +56,11 @@ public class LogActivity extends FragmentActivity implements OnGroupExpandListen
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		case R.id.action_refresh:
+		} else if (itemId == R.id.action_refresh) {
 			new LogLoadData(this).execute();
 			return true;
 		}
