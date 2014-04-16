@@ -46,5 +46,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
 	}
+	
+	public void onClickButtonBukaPintu(View v){
+		//TODO You know what to do
+	}
 
 }
