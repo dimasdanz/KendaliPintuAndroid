@@ -11,6 +11,8 @@ public class SharedPreferencesManager {
 	private static final String property_usernameId = "username_id";
 	private static final String property_appVersion = "appVersion";
 	private static final String property_regId = "registration_id";
+	private static final String property_adminId = "admin_id";
+	private static final String property_isAdmin = "is_admin";
 	
 	private SharedPreferencesManager() {}
 
@@ -74,4 +76,19 @@ public class SharedPreferencesManager {
         }
         return registrationId;
     }
+	
+	public static void setAsAdmin(Context context, Boolean b, String s){
+		final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+		editor.putBoolean(property_isAdmin, b);
+		editor.putString(property_adminId, s);
+		editor.commit();
+	}
+	
+	public static Boolean getIsAdminPrefs(Context context){
+		return getSharedPreferences(context).getBoolean(property_isAdmin, false);
+	}
+	
+	public static int getAdminIdPrefs(Context context){
+		return getSharedPreferences(context).getInt(property_adminId, 0);
+	}
 }
