@@ -16,11 +16,15 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.TaskStackBuilder;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 
 public final class CommonUtilities {
 	public static String TAG_NO_ACCOUNT = "NO_ACCOUNT";
 	public static String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
 	private static int msgCounter = 0;
+	private static Spannable[] name = new Spannable[6];
 	
 	public static void dialogConnectionError(final Context context){
 		AlertDialog.Builder builder = new AlertDialog.Builder(context, 4);
@@ -39,9 +43,10 @@ public final class CommonUtilities {
 	
 	public static void resetNotificationCounter(){
 		msgCounter = 0;
+		
 	}
 	
-	public static void generateNotification(Context context, String message){
+	public static void generateNotification(Context context, String message, String time){
 		NotificationManager manager;
 		int notificationID = 73;
 		
@@ -56,16 +61,43 @@ public final class CommonUtilities {
 		
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 		
+		Spannable sb = new SpannableString(message+"/"+time);
+		sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, message.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		
 		builder.setAutoCancel(true);
 		builder.setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND);
 		builder.setContentTitle("Log");
-		builder.setContentText(message);
+		builder.setContentText(sb);
 		builder.setTicker("New Log");
 		builder.setNumber(++msgCounter);
 		builder.setSmallIcon(R.drawable.ic_stat_notification);
 		builder.setLargeIcon(largeIcon);
 		builder.setContentIntent(resultPendingIntent);
 		
+		if(msgCounter > 1){
+			Notification.InboxStyle inboxStyle = new Notification.InboxStyle();
+			if(msgCounter > 6){
+				name[0] = new SpannableString("...");
+				name[1] = name[2];
+				name[2] = name[3];
+				name[3] = name[4];
+				name[4] = name[5];
+				name[5] = sb;
+			}else{
+				name[msgCounter-1] = sb;
+			}
+			
+			inboxStyle.setBigContentTitle("Log");
+			
+			for(int i=name.length; i > 0; i--){
+				inboxStyle.addLine(name[i-1]);
+			}
+			
+			builder.setStyle(inboxStyle);
+			builder.setContentText(msgCounter+" log");
+		}else{
+			name[0] = sb;
+		}
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		manager.notify(notificationID, builder.build());
 	}
