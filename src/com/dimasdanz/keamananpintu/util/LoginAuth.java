@@ -1,5 +1,6 @@
 package com.dimasdanz.keamananpintu.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,13 +56,23 @@ public class LoginAuth extends AsyncTask<String, Void, String> {
 					return CommonUtilities.TAG_INCORRECT_PASSWORD;
 				}else if(response == 1){
 					String user_id = json.getString("user_id");
-					
-					//TODO Send GCM Regid
+					gcm = GoogleCloudMessaging.getInstance(activity);
+					String regid = SharedPreferencesManager.getRegId(activity);
+					if (regid.isEmpty()) {
+						regid = gcm.register(SENDER_ID);
+						params.clear();
+						params.add(new BasicNameValuePair("user_id", user_id));
+						params.add(new BasicNameValuePair("gcm_id", regid));
+						json = jsonParser.makeHttpRequest(ServerUtilities.getRegisterDeviceUrl(activity), "POST", params);
+						SharedPreferencesManager.setRegId(activity, regid);
+					}
 					return user_id;
 				}else if(response == 2){
 					return CommonUtilities.TAG_NO_ACCOUNT;
 				}
 			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}else{
