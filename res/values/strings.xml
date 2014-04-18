@@ -11,13 +11,16 @@
     <string name="close">Tutup</string>
     <string name="refresh">Muat Ulang</string>
     <string name="message_dialog_connection_error">1. Koneksi internet bermasalah\n2. Hostname belum dikonfigurasi\n3. Konfigurasi hostname salah\n4. Server mungkin tidak tersedia</string>
-
+	<string name="notification_ticker">Log Baru</string>
+	<string name="notification_title">Log</string>
+    
     <!-- Main Activity -->
     <string name="action_open_door">Buka Pintu</string>
     <string name="action_device_status">Status Perangkat</string>
     <string name="action_log">Log</string>
     <string name="action_user">Pengguna</string>
     <string name="action_settings">Pengaturan</string>
+    <string name="toast_admin_privilege">Hak Admin dibutuhkan</string>
 
     <!-- Status Perangkat Activity -->
     <string name="title_activity_device_status">Status Perangkat</string>
@@ -53,9 +56,15 @@
     <string name="title_activity_setting">Pengaturan</string>
     <string name="string_hostname">Server Hostname</string>
     <string name="string_receive_notifications">Notifikasi</string>
+    <string name="string_admin_logout">Logout sebagai Admin?</string>
     <string name="hint_dialog_hostname_input">Hostname (tanpa http://)</string>
     <string name="toast_notification_setting_on">Anda akan menerima notifikasi</string>
     <string name="toast_notification_setting_off">Anda tidak akan menerima notifikasi</string>
+    <string name="string_as_admin">Hak Admin</string>
+    <string name="toast_admin_login_incorrect">Username atau Password salah</string>
+    <string name="toast_admin_login_failed">Koneksi gagal</string>
+    <string name="toast_admin_login_success">Login berhasil</string>
+    <string name="toast_admin_logout_success">Logout berhasil</string>
     
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>

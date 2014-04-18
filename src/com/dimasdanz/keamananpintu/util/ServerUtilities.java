@@ -8,6 +8,10 @@ public class ServerUtilities {
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_login";
 	}
 	
+	public static String getAdminLoginUrl(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_login_admin";
+	}
+	
 	public static String getRegisterDeviceUrl(Context context){
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_register_device";
 	}

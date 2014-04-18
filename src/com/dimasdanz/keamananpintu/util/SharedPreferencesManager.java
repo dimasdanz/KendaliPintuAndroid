@@ -2,22 +2,22 @@ package com.dimasdanz.keamananpintu.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class SharedPreferencesManager {
-	private static final String prefs_name = "KeamananPintuPrefs";
-	private static final String property_hostname = "hostname";
-	private static final String property_receiveNotifications = "notifications";
-	private static final String property_isLoggedIn = "logged_in";
-	private static final String property_usernameId = "username_id";
-	private static final String property_appVersion = "appVersion";
-	private static final String property_regId = "registration_id";
-	private static final String property_adminId = "admin_id";
-	private static final String property_isAdmin = "is_admin";
+	public static final String property_hostname = "hostname_prefs";
+	public static final String property_receiveNotifications = "notifications_prefs";
+	public static final String property_isLoggedIn = "logged_in_prefs";
+	public static final String property_usernameId = "username_id_prefs";
+	public static final String property_appVersion = "appVersion_prefs";
+	public static final String property_regId = "registration_id_prefs";
+	public static final String property_adminUsername = "admin_username_prefs";
+	public static final String property_isAdmin = "is_admin_prefs";
 	
 	private SharedPreferencesManager() {}
 
-    private static SharedPreferences getSharedPreferences(Context context) {
-        return context.getSharedPreferences(prefs_name, Context.MODE_PRIVATE);
+    public static SharedPreferences getSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static void setHostnamePrefs(Context context, String string) {
@@ -51,8 +51,8 @@ public class SharedPreferencesManager {
 		return getSharedPreferences(context).getBoolean(property_isLoggedIn, false);
 	}
 	
-	public static int getUsernameIdPrefs(Context context){
-		return getSharedPreferences(context).getInt(property_usernameId, 0);
+	public static String getUsernameIdPrefs(Context context){
+		return getSharedPreferences(context).getString(property_usernameId, "");
 	}
 	
 	public static void setRegId(Context context, String regId) {
@@ -80,7 +80,7 @@ public class SharedPreferencesManager {
 	public static void setAsAdmin(Context context, Boolean b, String s){
 		final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
 		editor.putBoolean(property_isAdmin, b);
-		editor.putString(property_adminId, s);
+		editor.putString(property_adminUsername, s);
 		editor.commit();
 	}
 	
@@ -88,7 +88,7 @@ public class SharedPreferencesManager {
 		return getSharedPreferences(context).getBoolean(property_isAdmin, false);
 	}
 	
-	public static int getAdminIdPrefs(Context context){
-		return getSharedPreferences(context).getInt(property_adminId, 0);
+	public static String getAdminIdPrefs(Context context){
+		return getSharedPreferences(context).getString(property_adminUsername, "Disabled");
 	}
 }

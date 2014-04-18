@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -28,18 +29,30 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onClickButtonStatusPerangkat(View v){
-		Intent intent = new Intent(getApplicationContext(), DeviceStatusActivity.class);
-        startActivity(intent);
+		if(SharedPreferencesManager.getIsAdminPrefs(this)){
+			Intent intent = new Intent(getApplicationContext(), DeviceStatusActivity.class);
+	        startActivity(intent);
+		}else{
+			Toast.makeText(this, R.string.toast_admin_privilege, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public void onClickButtonLog(View v){
-		Intent intent = new Intent(getApplicationContext(), LogActivity.class);
-        startActivity(intent);
+		if(SharedPreferencesManager.getIsAdminPrefs(this)){
+			Intent intent = new Intent(getApplicationContext(), LogActivity.class);
+	        startActivity(intent);
+		}else{
+			Toast.makeText(this, R.string.toast_admin_privilege, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public void onClickButtonPengguna(View v){
-		Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-        startActivity(intent);
+		if(SharedPreferencesManager.getIsAdminPrefs(this)){
+			Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+	        startActivity(intent);
+		}else{
+			Toast.makeText(this, R.string.toast_admin_privilege, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public void onClickButtonPengaturan(View v){
@@ -51,4 +64,5 @@ public class MainActivity extends Activity {
 		//TODO You know what to do
 	}
 
+	
 }
