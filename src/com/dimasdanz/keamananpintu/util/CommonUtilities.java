@@ -66,9 +66,9 @@ public final class CommonUtilities {
 		
 		builder.setAutoCancel(true);
 		builder.setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND);
-		builder.setContentTitle("Log");
+		builder.setContentTitle(context.getString(R.string.notification_title));
 		builder.setContentText(sb);
-		builder.setTicker("New Log");
+		builder.setTicker(context.getString(R.string.notification_ticker));
 		builder.setNumber(++msgCounter);
 		builder.setSmallIcon(R.drawable.ic_stat_notification);
 		builder.setLargeIcon(largeIcon);
@@ -87,14 +87,14 @@ public final class CommonUtilities {
 				name[msgCounter-1] = sb;
 			}
 			
-			inboxStyle.setBigContentTitle("Log");
+			inboxStyle.setBigContentTitle(context.getString(R.string.notification_title));
 			
 			for(int i=name.length; i > 0; i--){
 				inboxStyle.addLine(name[i-1]);
 			}
 			
 			builder.setStyle(inboxStyle);
-			builder.setContentText(msgCounter+" log");
+			builder.setContentText(msgCounter+" "+context.getString(R.string.notification_title));
 		}else{
 			name[0] = sb;
 		}
