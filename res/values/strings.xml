@@ -11,9 +11,9 @@
     <string name="close">Tutup</string>
     <string name="refresh">Muat Ulang</string>
     <string name="message_dialog_connection_error">1. Koneksi internet bermasalah\n2. Hostname belum dikonfigurasi\n3. Konfigurasi hostname salah\n4. Server mungkin tidak tersedia</string>
-	<string name="notification_ticker">Log Baru</string>
-	<string name="notification_title">Log</string>
-    
+    <string name="notification_ticker">Log Baru</string>
+    <string name="notification_title">Log</string>
+
     <!-- Main Activity -->
     <string name="action_open_door">Buka Pintu</string>
     <string name="action_device_status">Status Perangkat</string>
@@ -65,11 +65,16 @@
     <string name="toast_admin_login_failed">Koneksi gagal</string>
     <string name="toast_admin_login_success">Login berhasil</string>
     <string name="toast_admin_logout_success">Logout berhasil</string>
-    
+
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>
     <string name="hint_login_user">User ID</string>
-    
+
     <!-- Menu Item -->
     <string name="menu_action_about">Tentang</string>
+    
+    <!-- Open Door Activity -->
+    <string name="title_activity_open_door">OpenDoorActivity</string>
+    <string name="string_tap_nfc">Tap NFC</string>
+
 </resources>
