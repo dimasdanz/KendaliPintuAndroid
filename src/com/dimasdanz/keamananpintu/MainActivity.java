@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +27,17 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+	        startActivity(intent);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	public void onClickButtonStatusPerangkat(View v){
@@ -61,7 +73,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onClickButtonBukaPintu(View v){
-		//TODO You know what to do
+		Intent intent = new Intent(getApplicationContext(), OpenDoorActivity.class);
+        startActivity(intent);
 	}
 
 	
