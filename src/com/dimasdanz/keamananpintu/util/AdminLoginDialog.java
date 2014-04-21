@@ -13,7 +13,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -62,10 +61,8 @@ public class AdminLoginDialog extends DialogPreference{
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("username", args[0]));
 			params.add(new BasicNameValuePair("password", args[1]));
-			Log.d("Test", ServerUtilities.getAdminLoginUrl(getContext()));
 			json = jsonParser.makeHttpRequest(ServerUtilities.getAdminLoginUrl(getContext()), "POST", params);
 			if(json != null){
-				Log.d("Result", json.toString());
 				try {
 					if(json.getInt("response") == 1){
 						persistBoolean(true);
