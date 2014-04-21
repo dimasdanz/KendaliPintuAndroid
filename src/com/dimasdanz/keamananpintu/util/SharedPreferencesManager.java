@@ -13,6 +13,7 @@ public class SharedPreferencesManager {
 	public static final String property_regId = "registration_id_prefs";
 	public static final String property_adminUsername = "admin_username_prefs";
 	public static final String property_isAdmin = "is_admin_prefs";
+	public static final String property_firstTime = "first_time_prefs";
 	
 	private SharedPreferencesManager() {}
 
@@ -27,7 +28,7 @@ public class SharedPreferencesManager {
     }
     
     public static String getHostnamePrefs(Context context) {
-	    return "http://"+getSharedPreferences(context).getString(property_hostname , "192.168.2.4");
+	    return "http://"+getSharedPreferences(context).getString(property_hostname , "");
 	}
 
 	public static void setNotificationPrefs(Context context, Boolean b) {
@@ -90,5 +91,15 @@ public class SharedPreferencesManager {
 	
 	public static String getAdminIdPrefs(Context context){
 		return getSharedPreferences(context).getString(property_adminUsername, "Disabled");
+	}
+	
+	public static void setFirstTimePrefs(Context context, Boolean b){
+		final SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+		editor.putBoolean(property_firstTime, b);
+		editor.commit();
+	}
+	
+	public static Boolean getFirstTimePrefs(Context context){
+		return getSharedPreferences(context).getBoolean(property_firstTime, true);
 	}
 }

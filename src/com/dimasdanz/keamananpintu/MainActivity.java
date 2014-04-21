@@ -16,8 +16,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		if(!SharedPreferencesManager.getLoggedInPrefs(this)){
+		if(SharedPreferencesManager.getFirstTimePrefs(getApplicationContext())){
+			Intent intent = new Intent(getApplicationContext(), SetupActivity.class);
+			startActivity(intent);
+		}else if(!SharedPreferencesManager.getLoggedInPrefs(this)){
 			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 	        startActivity(intent);
 		}

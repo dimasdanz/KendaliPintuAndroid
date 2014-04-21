@@ -79,9 +79,8 @@
                 <category android:name="com.dimasdanz.keamananpintu" />
             </intent-filter>
         </receiver>
-        
-        <service 
-            android:name="com.dimasdanz.keamananpintu.util.GcmIntentService" >
+
+        <service android:name="com.dimasdanz.keamananpintu.util.GcmIntentService" >
         </service>
 
         <activity
@@ -90,12 +89,19 @@
             android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dimasdanz.keamananpintu.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.dimasdanz.keamananpintu.SetupActivity"
+            android:label="@string/title_activity_setup" >
         </activity>
     </application>
 
