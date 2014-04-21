@@ -23,6 +23,11 @@ import android.text.style.StyleSpan;
 public final class CommonUtilities {
 	public static String TAG_NO_ACCOUNT = "NO_ACCOUNT";
 	public static String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
+	public static String TAG_ENTER_NFC = "dimasdanz.keamananpintu.tag_masuk";
+	public static String TAG_EXIT_NFC = "dimasdanz.keamananpintu.tag_keluar";
+	public static String TAG_INVALID_NFC = "invalid_tag";
+	public static String TAG_SERVER_OFFLINE = "server_offline";
+	
 	private static int msgCounter = 0;
 	private static Spannable[] name = new Spannable[6];
 	

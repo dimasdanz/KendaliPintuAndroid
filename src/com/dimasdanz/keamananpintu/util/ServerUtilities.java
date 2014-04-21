@@ -16,6 +16,10 @@ public class ServerUtilities {
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_register_device";
 	}
 	
+	public static String getOpenDoorUrl(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_open_door";
+	}
+	
 	public static String deviceStatusUrl(Context context){
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/dcs/dcs_status";
 	}

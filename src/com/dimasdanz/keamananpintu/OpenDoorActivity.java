@@ -1,7 +1,18 @@
 package com.dimasdanz.keamananpintu;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import com.dimasdanz.keamananpintu.util.CommonUtilities;
+import com.dimasdanz.keamananpintu.util.JSONParser;
+import com.dimasdanz.keamananpintu.util.ServerUtilities;
+import com.dimasdanz.keamananpintu.util.SharedPreferencesManager;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -25,6 +36,8 @@ import android.widget.Toast;
 public class OpenDoorActivity extends FragmentActivity {
 	private static final String MIME_TEXT_PLAIN = "text/plain";
 	private static final String TAG = "NfcDemo";
+	private static final String INPUT_SOURCE_OUTSIDE = "Android Masuk";
+	private static final String INPUT_SOURCE_INSIDE = "Android Keluar";
 	private TextView mTextView;
 	private NfcAdapter mNfcAdapter;
 
@@ -37,17 +50,15 @@ public class OpenDoorActivity extends FragmentActivity {
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
 		if (mNfcAdapter == null) {
-			Toast.makeText(this, "This device doesn't support NFC.",
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
 			finish();
 			return;
-
 		}
 
 		if (!mNfcAdapter.isEnabled()) {
-			mTextView.setText("NFC is disabled.");
+			mTextView.setText(R.string.string_nfc_disabled);
 		} else {
-			mTextView.setText("NFC is enabled");
+			mTextView.setText(R.string.string_nfc_tap);
 		}
 
 		handleIntent(getIntent());
@@ -55,55 +66,84 @@ public class OpenDoorActivity extends FragmentActivity {
 
 	private void handleIntent(Intent intent) {
 		String action = intent.getAction();
-		if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)){
-			Log.d(TAG, "Test");
+		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
 			String type = intent.getType();
-			if (MIME_TEXT_PLAIN.equals(type)){
+			if (MIME_TEXT_PLAIN.equals(type)) {
 				Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 				new NdefReaderTask().execute(tag);
-			}else{
+			} else {
 				Log.d(TAG, "Wrong mime type: " + type);
 			}
 		}
 	}
-	
-	private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
-	    @Override
-	    protected String doInBackground(Tag... params) {
-	        Tag tag = params[0];
-	        Ndef ndef = Ndef.get(tag);
-	        if (ndef == null) {
-	            return null;
-	        }
-	        NdefMessage ndefMessage = ndef.getCachedNdefMessage();
-	        NdefRecord[] records = ndefMessage.getRecords();
-	        for (NdefRecord ndefRecord : records) {
-	            if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
-	                try {
-	                    return readText(ndefRecord);
-	                } catch (UnsupportedEncodingException e) {
-	                    Log.e(TAG, "Unsupported Encoding", e);
-	                }
-	            }
-	        }
-	        return null;
-	    }
-	     
-	    private String readText(NdefRecord record) throws UnsupportedEncodingException {	 
-	        byte[] payload = record.getPayload();
-	        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-	        int languageCodeLength = payload[0] & 0063;
-	        return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-	    }
-	     
-	    @Override
-	    protected void onPostExecute(String result) {
-	        if (result != null) {
-	            mTextView.setText("Read content: " + result);
-	        }
-	    }
-	}
 
+	private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
+		@Override
+		protected String doInBackground(Tag... args) {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject json = new JSONObject();
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			Tag tag = args[0];
+			Ndef ndef = Ndef.get(tag);
+			if (ndef == null) {
+				return null;
+			}
+			NdefMessage ndefMessage = ndef.getCachedNdefMessage();
+			NdefRecord[] records = ndefMessage.getRecords();
+			for (NdefRecord ndefRecord : records) {
+				if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(),	NdefRecord.RTD_TEXT)) {
+					try {
+						if(readText(ndefRecord).equals(CommonUtilities.TAG_ENTER_NFC)){
+							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
+							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_OUTSIDE));
+							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
+							if(json != null){
+								return CommonUtilities.TAG_ENTER_NFC;
+							}else{
+								return CommonUtilities.TAG_SERVER_OFFLINE;
+							}					
+						}else if(readText(ndefRecord).equals(CommonUtilities.TAG_EXIT_NFC)){
+							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
+							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_INSIDE));
+							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
+							if(json != null){
+								return CommonUtilities.TAG_EXIT_NFC;
+							}else{
+								return CommonUtilities.TAG_SERVER_OFFLINE;
+							}
+						}else{
+							return CommonUtilities.TAG_INVALID_NFC;
+						}
+					} catch (UnsupportedEncodingException e) {
+						Log.e(TAG, "Unsupported Encoding", e);
+					}
+				}
+			}
+			return null;
+		}
+
+		private String readText(NdefRecord record) throws UnsupportedEncodingException {
+			byte[] payload = record.getPayload();
+			String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
+			int languageCodeLength = payload[0] & 0063;
+			return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			if (result != null) {
+				if(result.equals(CommonUtilities.TAG_ENTER_NFC)){
+					mTextView.setText(R.string.string_nfc_enter);
+				}else if(result.equals(CommonUtilities.TAG_EXIT_NFC)){
+					mTextView.setText(R.string.string_nfc_exit);
+				}else if(result.equals(CommonUtilities.TAG_INVALID_NFC)){
+					mTextView.setText(R.string.string_nfc_invalid);
+				}else{
+					mTextView.setText(R.string.string_server_offline);
+				}
+			}
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.open_door, menu);
@@ -136,13 +176,11 @@ public class OpenDoorActivity extends FragmentActivity {
 		handleIntent(intent);
 	}
 
-	public static void setupForegroundDispatch(final Activity activity, NfcAdapter adapter) {
-		final Intent intent = new Intent(activity.getApplicationContext(),
-				activity.getClass());
+	public static void setupForegroundDispatch(final Activity activity,	NfcAdapter adapter) {
+		final Intent intent = new Intent(activity.getApplicationContext(),activity.getClass());
 		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-		final PendingIntent pendingIntent = PendingIntent.getActivity(
-				activity.getApplicationContext(), 0, intent, 0);
+		final PendingIntent pendingIntent = PendingIntent.getActivity(activity.getApplicationContext(), 0, intent, 0);
 
 		IntentFilter[] filters = new IntentFilter[1];
 		String[][] techList = new String[][] {};
