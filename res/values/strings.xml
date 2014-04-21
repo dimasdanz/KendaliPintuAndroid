@@ -70,10 +70,11 @@
     <!-- Login Activity -->
     <string name="title_activity_login">Login</string>
     <string name="hint_login_user">User ID</string>
+    <string name="string_previous">Kembali</string>
 
     <!-- Menu Item -->
     <string name="menu_action_about">Tentang</string>
-    
+
     <!-- Open Door Activity -->
     <string name="title_activity_open_door">Buka Pintu</string>
     <string name="string_nfc_tap">Tap NFC</string>
@@ -81,5 +82,10 @@
     <string name="string_nfc_invalid">NFC tidak terdaftar</string>
     <string name="string_nfc_enter">NFC Masuk</string>
     <string name="string_nfc_exit">NFC Keluar</string>
+    
+    
+    <string name="title_activity_setup">Setup</string>
+    <string name="string_setup_message">Masukan IP Address/Hostname Server Web</string>
+    <string name="string_next">Berikut</string>
 
 </resources>
