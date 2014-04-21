@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
-import android.util.Log;
+import android.preference.PreferenceManager;
 
 public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
 	private String hostname_key = SharedPreferencesManager.property_hostname;
@@ -19,6 +19,8 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        PreferenceManager.setDefaultValues(getActivity(), R.xml.settings, true);
  
         SharedPreferences prefs = SharedPreferencesManager.getSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
@@ -35,7 +37,6 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		Log.d("Test", key);
 		if(key.equals(hostname_key)){
 			findPreference(key).setSummary(SharedPreferencesManager.getHostnamePrefs(getActivity()));
 		}else if(key.equals(notification_key)){

@@ -52,59 +52,63 @@ public final class CommonUtilities {
 	}
 	
 	public static void generateNotification(Context context, String message, String time){
-		NotificationManager manager;
-		int notificationID = 73;
-		
-		Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_stat_notification);
-		
-		Notification.Builder builder = new Notification.Builder(context);
-		Intent resultIntent = new Intent(context, LogActivity.class);		
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		
-		stackBuilder.addParentStack(LogActivity.class);
-		stackBuilder.addNextIntent(resultIntent );
-		
-		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-		
-		Spannable sb = new SpannableString(message+"/"+time);
-		sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, message.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		
-		builder.setAutoCancel(true);
-		builder.setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND);
-		builder.setContentTitle(context.getString(R.string.notification_title));
-		builder.setContentText(sb);
-		builder.setTicker(context.getString(R.string.notification_ticker));
-		builder.setNumber(++msgCounter);
-		builder.setSmallIcon(R.drawable.ic_stat_notification);
-		builder.setLargeIcon(largeIcon);
-		builder.setContentIntent(resultPendingIntent);
-		
-		if(msgCounter > 1){
-			Notification.InboxStyle inboxStyle = new Notification.InboxStyle();
-			if(msgCounter > 6){
-				name[0] = new SpannableString("...");
-				name[1] = name[2];
-				name[2] = name[3];
-				name[3] = name[4];
-				name[4] = name[5];
-				name[5] = sb;
+		try {
+			NotificationManager manager;
+			int notificationID = 73;
+			
+			Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_stat_notification);
+			
+			Notification.Builder builder = new Notification.Builder(context);
+			Intent resultIntent = new Intent(context, LogActivity.class);		
+			TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+			
+			stackBuilder.addParentStack(LogActivity.class);
+			stackBuilder.addNextIntent(resultIntent );
+			
+			PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+			Spannable sb = new SpannableString(message+"/"+time);
+			sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, message.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			
+			builder.setAutoCancel(true);
+			builder.setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND);
+			builder.setContentTitle(context.getString(R.string.notification_title));
+			builder.setContentText(sb);
+			builder.setTicker(context.getString(R.string.notification_ticker));
+			builder.setNumber(++msgCounter);
+			builder.setSmallIcon(R.drawable.ic_stat_notification);
+			builder.setLargeIcon(largeIcon);
+			builder.setContentIntent(resultPendingIntent);
+			
+			if(msgCounter > 1){
+				Notification.InboxStyle inboxStyle = new Notification.InboxStyle();
+				if(msgCounter > 6){
+					name[0] = new SpannableString("...");
+					name[1] = name[2];
+					name[2] = name[3];
+					name[3] = name[4];
+					name[4] = name[5];
+					name[5] = sb;
+				}else{
+					name[msgCounter-1] = sb;
+				}
+				
+				inboxStyle.setBigContentTitle(context.getString(R.string.notification_title));
+				
+				for(int i=name.length; i > 0; i--){
+					inboxStyle.addLine(name[i-1]);
+				}
+				
+				builder.setStyle(inboxStyle);
+				builder.setContentText(msgCounter+" "+context.getString(R.string.notification_title));
 			}else{
-				name[msgCounter-1] = sb;
+				name[0] = sb;
 			}
-			
-			inboxStyle.setBigContentTitle(context.getString(R.string.notification_title));
-			
-			for(int i=name.length; i > 0; i--){
-				inboxStyle.addLine(name[i-1]);
-			}
-			
-			builder.setStyle(inboxStyle);
-			builder.setContentText(msgCounter+" "+context.getString(R.string.notification_title));
-		}else{
-			name[0] = sb;
+			manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+			manager.notify(notificationID, builder.build());
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
-		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		manager.notify(notificationID, builder.build());
+		
 	}
 	
 	public static int getAppVersion(Context context) {

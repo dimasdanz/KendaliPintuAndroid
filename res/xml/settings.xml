@@ -8,10 +8,12 @@
 	<SwitchPreference
 	    android:title="@string/string_receive_notifications"
         android:key="notifications_prefs"
+        android:defaultValue="true"
         android:summary="@string/na"/>
 	
 	<com.dimasdanz.keamananpintu.util.AdminLoginDialog 
 	    android:title="@string/string_as_admin"
 	    android:key="admin_username_prefs"
+	    android:defaultValue="Disabled"
 	    android:summary="@string/na"/>
 </PreferenceScreen>
