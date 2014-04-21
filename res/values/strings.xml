@@ -13,6 +13,7 @@
     <string name="message_dialog_connection_error">1. Koneksi internet bermasalah\n2. Hostname belum dikonfigurasi\n3. Konfigurasi hostname salah\n4. Server mungkin tidak tersedia</string>
     <string name="notification_ticker">Log Baru</string>
     <string name="notification_title">Log</string>
+    <string name="string_server_offline">Server tidak tersedia</string>
 
     <!-- Main Activity -->
     <string name="action_open_door">Buka Pintu</string>
@@ -74,7 +75,11 @@
     <string name="menu_action_about">Tentang</string>
     
     <!-- Open Door Activity -->
-    <string name="title_activity_open_door">OpenDoorActivity</string>
-    <string name="string_tap_nfc">Tap NFC</string>
+    <string name="title_activity_open_door">Buka Pintu</string>
+    <string name="string_nfc_tap">Tap NFC</string>
+    <string name="string_nfc_disabled">NFC non-aktif</string>
+    <string name="string_nfc_invalid">NFC tidak terdaftar</string>
+    <string name="string_nfc_enter">NFC Masuk</string>
+    <string name="string_nfc_exit">NFC Keluar</string>
 
 </resources>
