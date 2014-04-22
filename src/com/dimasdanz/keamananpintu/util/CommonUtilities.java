@@ -27,6 +27,7 @@ public final class CommonUtilities {
 	public static String TAG_EXIT_NFC = "dimasdanz.keamananpintu.tag_keluar";
 	public static String TAG_INVALID_NFC = "invalid_tag";
 	public static String TAG_SERVER_OFFLINE = "server_offline";
+	public static String TAG_ARDUINO_OFFLINE = "arduino_offline";
 	
 	private static int msgCounter = 0;
 	private static Spannable[] name = new Spannable[6];

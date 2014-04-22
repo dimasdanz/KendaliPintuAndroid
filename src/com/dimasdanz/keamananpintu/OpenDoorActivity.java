@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dimasdanz.keamananpintu.util.CommonUtilities;
@@ -30,6 +31,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +42,7 @@ public class OpenDoorActivity extends FragmentActivity {
 	private static final String INPUT_SOURCE_OUTSIDE = "Android Masuk";
 	private static final String INPUT_SOURCE_INSIDE = "Android Keluar";
 	private TextView mTextView;
+	private ProgressBar mProgressBar;
 	private NfcAdapter mNfcAdapter;
 
 	@Override
@@ -47,7 +51,10 @@ public class OpenDoorActivity extends FragmentActivity {
 		setContentView(R.layout.activity_open_door);
 
 		mTextView = (TextView) findViewById(R.id.txtOpenDoor);
+		mProgressBar = (ProgressBar) findViewById(R.id.pbOpenDoor);
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		
+		mProgressBar.setVisibility(View.GONE);
 
 		if (mNfcAdapter == null) {
 			Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
@@ -79,6 +86,13 @@ public class OpenDoorActivity extends FragmentActivity {
 
 	private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mProgressBar.setVisibility(View.VISIBLE);
+			mTextView.setText(R.string.loading_message);
+		}
+		
+		@Override
 		protected String doInBackground(Tag... args) {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject json = new JSONObject();
@@ -98,7 +112,11 @@ public class OpenDoorActivity extends FragmentActivity {
 							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_OUTSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
-								return CommonUtilities.TAG_ENTER_NFC;
+								if(json.getBoolean("response")){
+									return CommonUtilities.TAG_ENTER_NFC;
+								}else{
+									return CommonUtilities.TAG_ARDUINO_OFFLINE;
+								}								
 							}else{
 								return CommonUtilities.TAG_SERVER_OFFLINE;
 							}					
@@ -107,7 +125,11 @@ public class OpenDoorActivity extends FragmentActivity {
 							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_INSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
-								return CommonUtilities.TAG_EXIT_NFC;
+								if(json.getBoolean("response")){
+									return CommonUtilities.TAG_EXIT_NFC;
+								}else{
+									return CommonUtilities.TAG_ARDUINO_OFFLINE;
+								}
 							}else{
 								return CommonUtilities.TAG_SERVER_OFFLINE;
 							}
@@ -116,6 +138,8 @@ public class OpenDoorActivity extends FragmentActivity {
 						}
 					} catch (UnsupportedEncodingException e) {
 						Log.e(TAG, "Unsupported Encoding", e);
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -131,6 +155,7 @@ public class OpenDoorActivity extends FragmentActivity {
 
 		@Override
 		protected void onPostExecute(String result) {
+			mProgressBar.setVisibility(View.GONE);
 			if (result != null) {
 				if(result.equals(CommonUtilities.TAG_ENTER_NFC)){
 					mTextView.setText(R.string.string_nfc_enter);
@@ -138,6 +163,8 @@ public class OpenDoorActivity extends FragmentActivity {
 					mTextView.setText(R.string.string_nfc_exit);
 				}else if(result.equals(CommonUtilities.TAG_INVALID_NFC)){
 					mTextView.setText(R.string.string_nfc_invalid);
+				}else if(result.equals(CommonUtilities.TAG_ARDUINO_OFFLINE)){
+					mTextView.setText(R.string.string_arduino_offline);
 				}else{
 					mTextView.setText(R.string.string_server_offline);
 				}
