@@ -14,6 +14,7 @@
     <string name="notification_ticker">Log Baru</string>
     <string name="notification_title">Log</string>
     <string name="string_server_offline">Server tidak tersedia</string>
+    <string name="string_arduino_offline">Arduino tidak tersedia</string>
 
     <!-- Main Activity -->
     <string name="action_open_door">Buka Pintu</string>
