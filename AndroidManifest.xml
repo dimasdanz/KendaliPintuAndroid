@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dimasdanz.keamananpintu"
+    package="com.dimasdanz.kendalipintu"
     android:versionCode="1"
     android:versionName="1.2" >
 
@@ -12,10 +12,10 @@
     <uses-permission android:name="android.permission.NFC" />
 
     <permission
-        android:name="com.dimasdanz.keamananpintu.permission.C2D_MESSAGE"
+        android:name="com.dimasdanz.kendalipintu.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.dimasdanz.keamananpintu.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.dimasdanz.kendalipintu.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.dimasdanz.keamananpintu.MainActivity"
+            android:name="com.dimasdanz.kendalipintu.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,60 +33,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.DeviceStatusActivity"
+            android:name="com.dimasdanz.kendalipintu.DeviceStatusActivity"
             android:label="@string/title_activity_device_status"
-            android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dimasdanz.keamananpintu.MainActivity" />
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.LogActivity"
+            android:name="com.dimasdanz.kendalipintu.LogActivity"
             android:label="@string/title_activity_log"
-            android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dimasdanz.keamananpintu.MainActivity" />
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.UserActivity"
+            android:name="com.dimasdanz.kendalipintu.UserActivity"
             android:label="@string/title_activity_user"
-            android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dimasdanz.keamananpintu.MainActivity" />
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.SettingsActivity"
+            android:name="com.dimasdanz.kendalipintu.SettingsActivity"
             android:label="@string/title_activity_setting"
-            android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dimasdanz.keamananpintu.MainActivity" />
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.LoginActivity"
+            android:name="com.dimasdanz.kendalipintu.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
 
         <receiver
-            android:name="com.dimasdanz.keamananpintu.util.GcmBroadcastReceiver"
+            android:name="com.dimasdcom.dimasdanz.kendalipintu.util.GcmBroadcastReceiver"   
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.dimasdanz.keamananpintu" />
+                <category android:name="com.dimasdanz.kendalipintu" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.dimasdanz.keamananpintu.util.GcmIntentService" >
+        <service 
+            android:name="com.dimasdcom.dimasdanz.kendalipintu.util.GcmIntentService" >
         </service>
 
         <activity
-            android:name="com.dimasdanz.keamananpintu.OpenDoorActivity"
+            android:name="com.dimasdanz.kendalipintu.OpenDoorActivity"
             android:label="@string/title_activity_open_door"
-            android:parentActivityName="com.dimasdanz.keamananpintu.MainActivity" >
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -97,10 +98,10 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dimasdanz.keamananpintu.MainActivity" />
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
         <activity
-            android:name="com.dimasdanz.keamananpintu.SetupActivity"
+            android:name="com.dimasdanz.kendalipintu.SetupActivity"
             android:label="@string/title_activity_setup" >
         </activity>
     </application>

@@ -25,7 +25,7 @@
             android:text="@string/loading_message" />
     </LinearLayout>
     
-    <com.dimasdanz.keamananpintu.usermodel.UserListView
+    <com.dimasdanz.kendalipintu.usermodel.UserListView
 		android:id="@+id/userListView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"  />

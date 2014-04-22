@@ -11,7 +11,7 @@
         android:defaultValue="true"
         android:summary="@string/na"/>
 	
-	<com.dimasdanz.keamananpintu.util.AdminLoginDialog 
+	<com.dimasdanz.kendalipintu.util.AdminLoginDialog 
 	    android:title="@string/string_as_admin"
 	    android:key="admin_username_prefs"
 	    android:defaultValue="Disabled"

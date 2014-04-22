@@ -2,7 +2,7 @@
 <resources>
 
     <!-- General -->
-    <string name="app_name">Keamanan Pintu</string>
+    <string name="app_name">Kendali Pintu</string>
     <string name="na">n/a</string>
     <string name="change">Ubah</string>
     <string name="apply">Simpan</string>
