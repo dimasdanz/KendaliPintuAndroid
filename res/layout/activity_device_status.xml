@@ -10,62 +10,6 @@
     android:id="@+id/layout_activity_device_status" >
 
     <LinearLayout
-        android:id="@+id/layout_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/layout_attempts"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.02"
-            android:gravity="center_vertical"
-            android:text="@string/string_condition"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/txtCondition"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/string_condition_value_false"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_attempts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/layout_status"
-        android:layout_marginTop="25dp" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/string_attempt"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/txtAttempts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:inputType="number"
-            android:onClick="onClickAttemptsSetting" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/layout_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,12 +27,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_device_locked"
+        android:id="@+id/layout_device_offline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/layout_condition"
+        android:layout_below="@+id/layout_status"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -96,15 +40,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/string_condition_value_true"
+            android:text="@string/string_arduino_offline"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickButtonUnlock"
-            android:text="@string/string_unlock" />
     </LinearLayout>
 
     <LinearLayout
@@ -113,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/layout_device_locked"
+        android:layout_below="@+id/layout_device_offline"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
