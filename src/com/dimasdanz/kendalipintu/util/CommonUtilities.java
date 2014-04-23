@@ -21,14 +21,6 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 
 public final class CommonUtilities {
-	public static String TAG_NO_ACCOUNT = "NO_ACCOUNT";
-	public static String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
-	public static String TAG_ENTER_NFC = "dimasdanz.kendalipintu.tag_masuk";
-	public static String TAG_EXIT_NFC = "dimasdanz.kendalipintu.tag_keluar";
-	public static String TAG_INVALID_NFC = "invalid_tag";
-	public static String TAG_SERVER_OFFLINE = "server_offline";
-	public static String TAG_ARDUINO_OFFLINE = "arduino_offline";
-	
 	private static int msgCounter = 0;
 	private static Spannable[] name = new Spannable[6];
 	
@@ -52,7 +44,7 @@ public final class CommonUtilities {
 		
 	}
 	
-	public static void generateNotification(Context context, String message, String time){
+	public static void generateNotification(Context context, String message, String time, String info){
 		try {
 			NotificationManager manager;
 			int notificationID = 73;
@@ -67,7 +59,7 @@ public final class CommonUtilities {
 			stackBuilder.addNextIntent(resultIntent );
 			
 			PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-			Spannable sb = new SpannableString(message+"/"+time);
+			Spannable sb = new SpannableString(message+" "+time+"-"+info);
 			sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, message.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			
 			builder.setAutoCancel(true);
@@ -94,6 +86,7 @@ public final class CommonUtilities {
 				}
 				
 				inboxStyle.setBigContentTitle(context.getString(R.string.notification_title));
+				inboxStyle.setSummaryText(context.getString(R.string.app_name));
 				
 				for(int i=name.length; i > 0; i--){
 					inboxStyle.addLine(name[i-1]);

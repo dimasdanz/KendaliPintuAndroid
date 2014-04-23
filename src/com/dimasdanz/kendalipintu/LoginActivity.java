@@ -1,10 +1,10 @@
 package com.dimasdanz.kendalipintu;
 
 import com.dimasdanz.kendalipintu.R;
-import com.dimasdanz.kendalipintu.util.CommonUtilities;
 import com.dimasdanz.kendalipintu.util.LoginAuth;
 import com.dimasdanz.kendalipintu.util.SharedPreferencesManager;
 import com.dimasdanz.kendalipintu.util.LoginAuth.LoginAuthListener;
+import com.dimasdanz.kendalipintu.util.StaticString;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -64,9 +64,9 @@ public class LoginActivity extends Activity implements LoginAuthListener{
 	public void onTaskComplete(String result){
 		pDialog.dismiss();
 		if(result != null){
-			if(result == CommonUtilities.TAG_NO_ACCOUNT){
+			if(result == StaticString.TAG_NO_ACCOUNT){
 				Toast.makeText(this, "No Account", Toast.LENGTH_LONG).show();
-			}else if(result == CommonUtilities.TAG_INCORRECT_PASSWORD){
+			}else if(result == StaticString.TAG_INCORRECT_PASSWORD){
 				Toast.makeText(this, "Incorrect Password", Toast.LENGTH_LONG).show();
 			}else{
 				SharedPreferencesManager.setLoggedIn(getApplicationContext(), true, result);

@@ -11,10 +11,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dimasdanz.kendalipintu.R;
-import com.dimasdanz.kendalipintu.util.CommonUtilities;
 import com.dimasdanz.kendalipintu.util.JSONParser;
 import com.dimasdanz.kendalipintu.util.ServerUtilities;
 import com.dimasdanz.kendalipintu.util.SharedPreferencesManager;
+import com.dimasdanz.kendalipintu.util.StaticString;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -108,34 +108,34 @@ public class OpenDoorActivity extends FragmentActivity {
 			for (NdefRecord ndefRecord : records) {
 				if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(),	NdefRecord.RTD_TEXT)) {
 					try {
-						if(readText(ndefRecord).equals(CommonUtilities.TAG_ENTER_NFC)){
+						if(readText(ndefRecord).equals(StaticString.TAG_ENTER_NFC)){
 							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
 							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_OUTSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
 								if(json.getBoolean("response")){
-									return CommonUtilities.TAG_ENTER_NFC;
+									return StaticString.TAG_ENTER_NFC;
 								}else{
-									return CommonUtilities.TAG_ARDUINO_OFFLINE;
+									return StaticString.TAG_ARDUINO_OFFLINE;
 								}								
 							}else{
-								return CommonUtilities.TAG_SERVER_OFFLINE;
+								return StaticString.TAG_SERVER_OFFLINE;
 							}					
-						}else if(readText(ndefRecord).equals(CommonUtilities.TAG_EXIT_NFC)){
+						}else if(readText(ndefRecord).equals(StaticString.TAG_EXIT_NFC)){
 							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
 							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_INSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
 								if(json.getBoolean("response")){
-									return CommonUtilities.TAG_EXIT_NFC;
+									return StaticString.TAG_EXIT_NFC;
 								}else{
-									return CommonUtilities.TAG_ARDUINO_OFFLINE;
+									return StaticString.TAG_ARDUINO_OFFLINE;
 								}
 							}else{
-								return CommonUtilities.TAG_SERVER_OFFLINE;
+								return StaticString.TAG_SERVER_OFFLINE;
 							}
 						}else{
-							return CommonUtilities.TAG_INVALID_NFC;
+							return StaticString.TAG_INVALID_NFC;
 						}
 					} catch (UnsupportedEncodingException e) {
 						Log.e(TAG, "Unsupported Encoding", e);
@@ -158,13 +158,13 @@ public class OpenDoorActivity extends FragmentActivity {
 		protected void onPostExecute(String result) {
 			mProgressBar.setVisibility(View.GONE);
 			if (result != null) {
-				if(result.equals(CommonUtilities.TAG_ENTER_NFC)){
+				if(result.equals(StaticString.TAG_ENTER_NFC)){
 					mTextView.setText(R.string.string_nfc_enter);
-				}else if(result.equals(CommonUtilities.TAG_EXIT_NFC)){
+				}else if(result.equals(StaticString.TAG_EXIT_NFC)){
 					mTextView.setText(R.string.string_nfc_exit);
-				}else if(result.equals(CommonUtilities.TAG_INVALID_NFC)){
+				}else if(result.equals(StaticString.TAG_INVALID_NFC)){
 					mTextView.setText(R.string.string_nfc_invalid);
-				}else if(result.equals(CommonUtilities.TAG_ARDUINO_OFFLINE)){
+				}else if(result.equals(StaticString.TAG_ARDUINO_OFFLINE)){
 					mTextView.setText(R.string.string_arduino_offline);
 				}else{
 					mTextView.setText(R.string.string_server_offline);
