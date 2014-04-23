@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dimasdanz.kendalipintu"
     android:versionCode="1"
-    android:versionName="1.2" >
+    android:versionName="1.3" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -70,7 +70,7 @@
         </activity>
 
         <receiver
-            android:name="com.dimasdcom.dimasdanz.kendalipintu.util.GcmBroadcastReceiver"   
+            android:name=".util.GcmBroadcastReceiver"   
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -81,7 +81,7 @@
         </receiver>
 
         <service 
-            android:name="com.dimasdcom.dimasdanz.kendalipintu.util.GcmIntentService" >
+            android:name=".util.GcmIntentService" >
         </service>
 
         <activity
