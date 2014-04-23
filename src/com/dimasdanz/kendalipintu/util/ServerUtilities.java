@@ -44,20 +44,15 @@ public class ServerUtilities {
 		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/android/delete_user";
 	}
 	
-	/* Deprecated */
-	public static String deviceStatusUrl(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/android/status";
+	public static String getDeviceStatusUrl(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/arduino/check_arduino";
 	}
 
-	public static String changeDeviceStatusUrl(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/android/change_status";
+	public static String activateDeviceUrl(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/arduino/activate";
 	}
-
-	public static String changeDeviceAttemptsUrl(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/android/change_attempts";
-	}
-
-	public static String unlockDeviceUrl(Context context){
-		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/android/unlock";
+	
+	public static String deactivateDeviceUrl(Context context){
+		return SharedPreferencesManager.getHostnamePrefs(context)+"/api/arduino/deactivate";
 	}
 }
