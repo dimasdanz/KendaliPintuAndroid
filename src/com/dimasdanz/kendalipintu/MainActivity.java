@@ -53,12 +53,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onClickButtonLog(View v){
-		if(SharedPreferencesManager.getIsAdminPrefs(this)){
-			Intent intent = new Intent(getApplicationContext(), LogActivity.class);
-	        startActivity(intent);
-		}else{
-			Toast.makeText(this, R.string.toast_admin_privilege, Toast.LENGTH_SHORT).show();
-		}
+		Intent intent = new Intent(getApplicationContext(), LogActivity.class);
+        startActivity(intent);
 	}
 	
 	public void onClickButtonPengguna(View v){
