@@ -16,8 +16,9 @@ public class GcmIntentService extends IntentService {
         if (!extras.isEmpty()){
         	String time = (String) extras.get("notification_time");
         	String name = (String) extras.get("notification_message");
+        	String info = (String) extras.get("notification_info");
         	if(SharedPreferencesManager.getNotificationPrefs(getApplicationContext())){
-        		CommonUtilities.generateNotification(getApplicationContext(), name, time);
+        		CommonUtilities.generateNotification(getApplicationContext(), name, time, info);
         	}
         }
     }
