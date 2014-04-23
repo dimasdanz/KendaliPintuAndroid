@@ -14,7 +14,6 @@ import com.dimasdanz.kendalipintu.util.ServerUtilities;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class LogLoadDetail extends AsyncTask<String, Void, List<LogModel>> {
 	JSONParser jsonParser = new JSONParser();
@@ -41,15 +40,15 @@ public class LogLoadDetail extends AsyncTask<String, Void, List<LogModel>> {
 			try {
 				JSONArray name = json.getJSONArray("name");
 				JSONArray time = json.getJSONArray("time");
+				JSONArray info = json.getJSONArray("info");
 				for (int i = 0; i < name.length(); i++) {
-					detail.add(new LogModel(name.get(i).toString(), time.get(i).toString()));
+					detail.add(new LogModel(name.get(i).toString(), time.get(i).toString()+" - "+info.get(i).toString()));
 				}
 			} catch (JSONException e1) {
 				e1.printStackTrace();
 			}
 			return detail;
 		}else{
-			Log.d("Log", "Failed");
 			return null;
 		}
 	}
