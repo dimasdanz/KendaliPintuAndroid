@@ -7,7 +7,7 @@ This is an Android Application of my College Final Project.
 
 The web part is [here] (https://github.com/Dimasdanz/KendaliPintuWeb)
 
-The Arduino part is **Under Development**
+The Arduino part is [here] (https://github.com/Dimasdanz/KendaliPintuArduino)
 
 This repository is only intended as a backup from my computer.
 
