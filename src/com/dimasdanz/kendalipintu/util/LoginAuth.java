@@ -53,7 +53,7 @@ public class LoginAuth extends AsyncTask<String, Void, String> {
 				int response = json.getInt("response");
 				Log.d("Login Response", String.valueOf(response));
 				if(response == 0){
-					return CommonUtilities.TAG_INCORRECT_PASSWORD;
+					return StaticString.TAG_INCORRECT_PASSWORD;
 				}else if(response == 1){
 					String user_id = json.getString("user_id");
 					gcm = GoogleCloudMessaging.getInstance(activity);
@@ -68,7 +68,7 @@ public class LoginAuth extends AsyncTask<String, Void, String> {
 					}
 					return user_id;
 				}else if(response == 2){
-					return CommonUtilities.TAG_NO_ACCOUNT;
+					return StaticString.TAG_NO_ACCOUNT;
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
