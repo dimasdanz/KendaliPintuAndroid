@@ -39,7 +39,6 @@ public class LoginAuth extends AsyncTask<String, Void, String> {
 	private Activity activity;
 	
 	private GoogleCloudMessaging gcm;
-	String SENDER_ID = "635594376353";
 	
 	public interface LoginAuthListener{
 		public void onTaskProgress();
@@ -75,7 +74,7 @@ public class LoginAuth extends AsyncTask<String, Void, String> {
 					gcm = GoogleCloudMessaging.getInstance(activity);
 					String regid = SharedPreferencesManager.getRegId(activity);
 					if (regid.isEmpty()) {
-						regid = gcm.register(SENDER_ID);
+						regid = gcm.register(SenderID.SENDER_ID);
 						params.clear();
 						params.add(new BasicNameValuePair("user_id", user_id));
 						params.add(new BasicNameValuePair("gcm_id", regid));
