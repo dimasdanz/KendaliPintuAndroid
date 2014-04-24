@@ -19,6 +19,7 @@ package com.dimasdanz.kendalipintu;
 import com.dimasdanz.kendalipintu.R;
 import com.dimasdanz.kendalipintu.util.SharedPreferencesManager;
 
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	private NfcAdapter mNfcAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 	        startActivity(intent);
 		}
+		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 	}
 
 	@Override
@@ -88,9 +91,12 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onClickButtonBukaPintu(View v){
-		Intent intent = new Intent(getApplicationContext(), OpenDoorActivity.class);
-        startActivity(intent);
+		if (mNfcAdapter == null || !mNfcAdapter.isEnabled()) {
+			Intent intent = new Intent(getApplicationContext(), BarcodeOpenDoorActivity.class);
+	        startActivity(intent);
+		}else{
+			Intent intent = new Intent(getApplicationContext(), NFCOpenDoorActivity.class);
+	        startActivity(intent);
+		}
 	}
-
-	
 }
