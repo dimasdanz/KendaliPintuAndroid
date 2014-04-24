@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dimasdanz.kendalipintu"
     android:versionCode="1"
-    android:versionName="1.3" >
+    android:versionName="1.4" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -10,6 +10,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <permission
         android:name="com.dimasdanz.kendalipintu.permission.C2D_MESSAGE"
@@ -70,7 +73,7 @@
         </activity>
 
         <receiver
-            android:name=".util.GcmBroadcastReceiver"   
+            android:name="com.dimasdanz.kendalipintu.util.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -80,12 +83,11 @@
             </intent-filter>
         </receiver>
 
-        <service 
-            android:name=".util.GcmIntentService" >
+        <service android:name="com.dimasdanz.kendalipintu.util.GcmIntentService" >
         </service>
 
         <activity
-            android:name="com.dimasdanz.kendalipintu.OpenDoorActivity"
+            android:name="com.dimasdanz.kendalipintu.NFCOpenDoorActivity"
             android:label="@string/title_activity_open_door"
             android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <intent-filter>
@@ -103,6 +105,14 @@
         <activity
             android:name="com.dimasdanz.kendalipintu.SetupActivity"
             android:label="@string/title_activity_setup" >
+        </activity>
+        <activity
+            android:name="com.dimasdanz.kendalipintu.BarcodeOpenDoorActivity"
+            android:label="@string/title_activity_open_door"
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
         </activity>
     </application>
 

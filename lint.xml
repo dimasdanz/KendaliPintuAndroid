@@ -3,4 +3,7 @@
     <issue id="AllowBackup">
         <ignore path="AndroidManifest.xml" />
     </issue>
+    <issue id="ViewConstructor">
+        <ignore path="src/com/dimasdanz/kendalipintu/opendoor/BarcodePreview.java" />
+    </issue>
 </lint>

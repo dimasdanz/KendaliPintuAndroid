@@ -70,15 +70,21 @@
     <!-- Menu Item -->
     <string name="menu_action_about">Tentang</string>
 
-    <!-- Open Door Activity -->
+    <!-- NFC Open Door Activity -->
     <string name="title_activity_open_door">Buka Pintu</string>
     <string name="string_nfc_tap">Tap NFC</string>
-    <string name="string_nfc_disabled">NFC non-aktif</string>
     <string name="string_nfc_invalid">NFC tidak terdaftar</string>
     <string name="string_nfc_enter">NFC Masuk</string>
     <string name="string_nfc_exit">NFC Keluar</string>
     
+    <!-- NFC Open Door Activity -->
+    <string name="string_barcode_refresh">Refresh</string>
+    <string name="string_barcode_enter">Barcode Masuk</string>
+    <string name="string_barcode_exit">Barcode Keluar</string>
+    <string name="string_barcode_invalid">Barcode tidak terdaftar</string>
+    <string name="string_barcode_instruction">Scan QR Code</string>
     
+    <!-- Setup Activity -->
     <string name="title_activity_setup">Setup</string>
     <string name="string_setup_message">Masukan IP Address/Hostname Server Web</string>
     <string name="string_next">Berikut</string>
