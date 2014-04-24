@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+src/com/dimasdanz/kendalipintu/util/SenderID.java
 
 # External tool builders
 .externalToolBuilders/
