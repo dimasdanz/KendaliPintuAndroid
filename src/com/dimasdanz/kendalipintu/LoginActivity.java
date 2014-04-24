@@ -70,7 +70,7 @@ public class LoginActivity extends Activity implements LoginAuthListener{
 	@Override
 	public void onTaskProgress() {
 		pDialog = new ProgressDialog(this);
-		pDialog.setMessage("Logging in...");
+		pDialog.setMessage(getApplicationContext().getString(R.string.title_activity_login)+"...");
 		pDialog.setIndeterminate(false);
 		pDialog.setCancelable(false);
 		pDialog.show();
