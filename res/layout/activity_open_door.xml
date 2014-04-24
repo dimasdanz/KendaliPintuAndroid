@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/na"
+        android:text="@string/string_nfc_tap"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ProgressBar
