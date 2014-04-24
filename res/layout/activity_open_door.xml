@@ -6,7 +6,7 @@
     android:layout_marginRight="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".OpenDoorActivity" >
+    tools:context=".NFCOpenDoorActivity" >
 
     <TextView
         android:id="@+id/txtOpenDoor"

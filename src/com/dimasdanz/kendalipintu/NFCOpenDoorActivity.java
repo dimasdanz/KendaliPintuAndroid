@@ -51,13 +51,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class OpenDoorActivity extends FragmentActivity {
+public class NFCOpenDoorActivity extends FragmentActivity {
 	private static final String MIME_TEXT_PLAIN = "text/plain";
 	private static final String TAG = "NfcDemo";
-	private static final String INPUT_SOURCE_OUTSIDE = "Android Masuk";
-	private static final String INPUT_SOURCE_INSIDE = "Android Keluar";
 	private TextView mTextView;
 	private ProgressBar mProgressBar;
 	private NfcAdapter mNfcAdapter;
@@ -72,18 +69,6 @@ public class OpenDoorActivity extends FragmentActivity {
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		
 		mProgressBar.setVisibility(View.GONE);
-
-		if (mNfcAdapter == null) {
-			Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-			finish();
-			return;
-		}
-
-		if (!mNfcAdapter.isEnabled()) {
-			mTextView.setText(R.string.string_nfc_disabled);
-		} else {
-			mTextView.setText(R.string.string_nfc_tap);
-		}
 
 		handleIntent(getIntent());
 	}
@@ -124,26 +109,26 @@ public class OpenDoorActivity extends FragmentActivity {
 			for (NdefRecord ndefRecord : records) {
 				if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(),	NdefRecord.RTD_TEXT)) {
 					try {
-						if(readText(ndefRecord).equals(StaticString.TAG_ENTER_NFC)){
+						if(readText(ndefRecord).equals(StaticString.TAG_NFC_ENTER)){
 							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
-							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_OUTSIDE));
+							params.add(new BasicNameValuePair("input_source", StaticString.INPUT_SOURCE_OUTSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
 								if(json.getBoolean("response")){
-									return StaticString.TAG_ENTER_NFC;
+									return StaticString.TAG_NFC_ENTER;
 								}else{
 									return StaticString.TAG_ARDUINO_OFFLINE;
 								}								
 							}else{
 								return StaticString.TAG_SERVER_OFFLINE;
-							}					
-						}else if(readText(ndefRecord).equals(StaticString.TAG_EXIT_NFC)){
+							}
+						}else if(readText(ndefRecord).equals(StaticString.TAG_NFC_EXIT)){
 							params.add(new BasicNameValuePair("username_id", SharedPreferencesManager.getUsernameIdPrefs(getApplicationContext())));
-							params.add(new BasicNameValuePair("input_source", INPUT_SOURCE_INSIDE));
+							params.add(new BasicNameValuePair("input_source", StaticString.INPUT_SOURCE_INSIDE));
 							json = jsonParser.makeHttpRequest(ServerUtilities.getOpenDoorUrl(getApplicationContext()), "POST", params);
 							if(json != null){
 								if(json.getBoolean("response")){
-									return StaticString.TAG_EXIT_NFC;
+									return StaticString.TAG_NFC_EXIT;
 								}else{
 									return StaticString.TAG_ARDUINO_OFFLINE;
 								}
@@ -174,9 +159,9 @@ public class OpenDoorActivity extends FragmentActivity {
 		protected void onPostExecute(String result) {
 			mProgressBar.setVisibility(View.GONE);
 			if (result != null) {
-				if(result.equals(StaticString.TAG_ENTER_NFC)){
+				if(result.equals(StaticString.TAG_NFC_ENTER)){
 					mTextView.setText(R.string.string_nfc_enter);
-				}else if(result.equals(StaticString.TAG_EXIT_NFC)){
+				}else if(result.equals(StaticString.TAG_NFC_EXIT)){
 					mTextView.setText(R.string.string_nfc_exit);
 				}else if(result.equals(StaticString.TAG_INVALID_NFC)){
 					mTextView.setText(R.string.string_nfc_invalid);
