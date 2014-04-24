@@ -45,7 +45,8 @@ public class JSONParser {
 	static InputStream is = null;
 	static JSONObject jObj = null;
 	static String json = "";
-	int timeout = 5000;
+	int so_timeout = 8000;
+	int co_timeout = 5000;
 
 	public JSONParser() {
 
@@ -54,8 +55,8 @@ public class JSONParser {
 	public JSONObject makeHttpRequest(String url, String method,List<NameValuePair> params) {
 		try {
 			HttpParams httpParameters = new BasicHttpParams();
-			HttpConnectionParams.setSoTimeout(httpParameters, timeout);
-			HttpConnectionParams.setConnectionTimeout(httpParameters, timeout);
+			HttpConnectionParams.setSoTimeout(httpParameters, so_timeout);
+			HttpConnectionParams.setConnectionTimeout(httpParameters, co_timeout);
 			if (method == "POST") {
 				DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
 				HttpPost httpPost = new HttpPost(url);
