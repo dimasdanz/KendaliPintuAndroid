@@ -102,14 +102,14 @@ public final class CommonUtilities {
 				}
 				
 				inboxStyle.setBigContentTitle(context.getString(R.string.notification_title));
-				inboxStyle.setSummaryText(context.getString(R.string.app_name));
+				inboxStyle.setSummaryText(msgCounter+" "+context.getString(R.string.notification_title)+" Baru");
 				
 				for(int i=name.length; i > 0; i--){
 					inboxStyle.addLine(name[i-1]);
 				}
 				
 				builder.setStyle(inboxStyle);
-				builder.setContentText(msgCounter+" "+context.getString(R.string.notification_title));
+				builder.setContentText(msgCounter+" "+context.getString(R.string.notification_title)+" Baru");
 			}else{
 				name[0] = sb;
 			}
