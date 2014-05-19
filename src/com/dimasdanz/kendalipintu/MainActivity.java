@@ -99,4 +99,9 @@ public class MainActivity extends Activity {
 	        startActivity(intent);
 		}
 	}
+	
+	public void onClickButtonBukaPintuJarakJauh(View v){
+		Intent intent = new Intent(getApplicationContext(), RemoteOpenDoor.class);
+        startActivity(intent);
+	}
 }

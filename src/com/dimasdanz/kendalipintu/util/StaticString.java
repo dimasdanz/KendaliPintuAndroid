@@ -17,18 +17,20 @@
 package com.dimasdanz.kendalipintu.util;
 
 public class StaticString {
-	public static String TAG_NO_ACCOUNT = "NO_ACCOUNT";
-	public static String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
-	public static String TAG_NFC_ENTER = "dimasdanz.kendalipintu.tag_masuk";
-	public static String TAG_NFC_EXIT = "dimasdanz.kendalipintu.tag_keluar";
-	public static String TAG_INVALID_NFC = "invalid_tag";
-	public static String TAG_SERVER_OFFLINE = "server_offline";
-	public static String TAG_ARDUINO_OFFLINE = "arduino_offline";
-	public static String TAG_STATUS_OFFLINE = "offline";
-	public static String TAG_STATUS_ACTIVE = "active";
-	public static String TAG_STATUS_INACTIVE = "inactive";
-	public static String TAG_BARCODE_ENTER = "dimasdanz.kendalipintu.barcode_masuk";
-	public static String TAG_BARCODE_EXIT = "dimasdanz.kendalipintu.barcode_keluar";
+	public static final String TAG_NO_ACCOUNT = "NO_ACCOUNT";
+	public static final String TAG_INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
+	public static final String TAG_NFC_ENTER = "dimasdanz.kendalipintu.tag_masuk";
+	public static final String TAG_NFC_EXIT = "dimasdanz.kendalipintu.tag_keluar";
+	public static final String TAG_INVALID_NFC = "invalid_tag";
+	public static final String TAG_SERVER_OFFLINE = "server_offline";
+	public static final String TAG_ARDUINO_OFFLINE = "arduino_offline";
+	public static final String TAG_STATUS_OFFLINE = "offline";
+	public static final String TAG_STATUS_ACTIVE = "active";
+	public static final String TAG_STATUS_INACTIVE = "inactive";
+	public static final String TAG_BARCODE_ENTER = "dimasdanz.kendalipintu.barcode_masuk";
+	public static final String TAG_BARCODE_EXIT = "dimasdanz.kendalipintu.barcode_keluar";
+	public static final String TAG_DOOR_OPENED = "door_opened";
 	public static final String INPUT_SOURCE_OUTSIDE = "Android Masuk";
 	public static final String INPUT_SOURCE_INSIDE = "Android Keluar";
+	public static final String INPUT_SOURCE_REMOTE = "Android Remote";
 }

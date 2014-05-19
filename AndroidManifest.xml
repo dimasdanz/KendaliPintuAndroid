@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -109,6 +110,14 @@
         <activity
             android:name="com.dimasdanz.kendalipintu.BarcodeOpenDoorActivity"
             android:label="@string/title_activity_open_door"
+            android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dimasdanz.kendalipintu.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.dimasdanz.kendalipintu.RemoteOpenDoor"
+            android:label="@string/title_activity_remote_open_door"
             android:parentActivityName="com.dimasdanz.kendalipintu.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

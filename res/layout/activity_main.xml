@@ -39,16 +39,6 @@
         android:onClick="onClickButtonPengaturan" />
 
     <Button
-        android:id="@+id/btnBuka"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/btnStatusPerangkat"
-        android:onClick="onClickButtonBukaPintu"
-        android:text="@string/action_open_door" />
-
-    <Button
         android:id="@+id/btnStatusPerangkat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,5 +47,25 @@
         android:layout_below="@+id/btnBuka"
         android:onClick="onClickButtonStatusPerangkat"
         android:text="@string/action_device_status" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnBuka"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/btnBuka"
+        android:text="@string/action_remote_open_door" 
+        android:onClick="onClickButtonBukaPintuJarakJauh"/>
+
+    <Button
+        android:id="@+id/btnBuka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnLog"
+        android:layout_alignRight="@+id/btnStatusPerangkat"
+        android:layout_below="@+id/button1"
+        android:onClick="onClickButtonBukaPintu"
+        android:text="@string/action_open_door" />
     
 </RelativeLayout>

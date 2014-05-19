@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".RemoteOpenDoorActivity" >
+
+    <Button
+        android:id="@+id/btnRemoteOpenDoor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_open_door" 
+        android:onClick="onClickRemoteOpenDoor"/>
+
+    <ProgressBar
+        android:id="@+id/pbRemote"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txtRemoteInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone"/>
+    
+</LinearLayout>
