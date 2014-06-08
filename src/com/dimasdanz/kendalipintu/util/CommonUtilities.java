@@ -56,6 +56,7 @@ public final class CommonUtilities {
 	}
 	
 	public static void resetNotificationCounter(){
+		name = new Spannable[6];
 		msgCounter = 0;
 		
 	}
