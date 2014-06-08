@@ -79,7 +79,12 @@ public class NFCOpenDoorActivity extends FragmentActivity {
 			String type = intent.getType();
 			if (MIME_TEXT_PLAIN.equals(type)) {
 				Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-				new NdefReaderTask().execute(tag);
+				if(SharedPreferencesManager.getLoggedInPrefs(getApplicationContext())){
+					new NdefReaderTask().execute(tag);
+				}else{
+					Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+			        startActivity(i);
+				}
 			} else {
 				Log.d(TAG, "Wrong mime type: " + type);
 			}
