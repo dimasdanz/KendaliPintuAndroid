@@ -7,6 +7,7 @@
     <string name="change">Ubah</string>
     <string name="apply">Simpan</string>
     <string name="delete">Hapus</string>
+    <string name="logout">Logout</string>
     <string name="loading_message">Mohon Tunggu</string>
     <string name="close">Tutup</string>
     <string name="refresh">Muat Ulang</string>

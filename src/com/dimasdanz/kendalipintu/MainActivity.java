@@ -38,11 +38,11 @@ public class MainActivity extends Activity {
 		if(SharedPreferencesManager.getFirstTimePrefs(getApplicationContext())){
 			Intent intent = new Intent(getApplicationContext(), SetupActivity.class);
 			startActivity(intent);
-		}else if(!SharedPreferencesManager.getLoggedInPrefs(this)){
+		}else if(!SharedPreferencesManager.getLoggedInPrefs(getApplicationContext())){
 			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 	        startActivity(intent);
 		}
-		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		mNfcAdapter = NfcAdapter.getDefaultAdapter(getApplicationContext());
 	}
 
 	@Override
@@ -56,6 +56,12 @@ public class MainActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+	        startActivity(intent);
+			return true;
+		}else if (id == R.id.logout) {
+			SharedPreferencesManager.setLoggedIn(getApplicationContext(), false, "000");
+			SharedPreferencesManager.setFirstTimePrefs(getApplicationContext(), true);
+			Intent intent = new Intent(getApplicationContext(), SetupActivity.class);
 	        startActivity(intent);
 			return true;
 		}
@@ -103,5 +109,12 @@ public class MainActivity extends Activity {
 	public void onClickButtonBukaPintuJarakJauh(View v){
 		Intent intent = new Intent(getApplicationContext(), RemoteOpenDoor.class);
         startActivity(intent);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		startActivity(intent);
 	}
 }
