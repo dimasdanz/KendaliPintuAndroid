@@ -1,6 +1,6 @@
 KendaliPintuAndroid
 ====================
-### Dimas Rullyan Danu (dimasdanz@gmail.com)
+### [Dimas Rullyan Danu](http://id.linkedin.com/pub/dimas-r-danu/94/160/4b8/) (dimasdanz@gmail.com)
 
 KendaliPintuAndroid is an Android Application as a **controller/notification receiver/and many more** of an Arduino based and connected to Arduino via Web Server.  
 
@@ -49,5 +49,5 @@ And you have to include my name and link it to this page :D
 ###Contact:
  + [Facebook](http://www.facebook.com/Dimasdanz)
  + [Twitter](http://www.twitter.com/Dimasdanz)
- + [Linkedin](id.linkedin.com/pub/dimas-r-danu/94/160/4b8/)
+ + [LinkedIn](http://id.linkedin.com/pub/dimas-r-danu/94/160/4b8/)
  + dimasdanz@gmail.com
