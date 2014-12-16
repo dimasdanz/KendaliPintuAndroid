@@ -49,4 +49,5 @@ And you have to include my name and link it to this page :D
 ###Contact:
  + [Facebook](http://www.facebook.com/Dimasdanz)
  + [Twitter](http://www.twitter.com/Dimasdanz)
+ + [Linkedin](id.linkedin.com/pub/dimas-r-danu/94/160/4b8/)
  + dimasdanz@gmail.com
